@@ -1,5 +1,5 @@
 import { SignupModel } from './signup.model';
 
-export class UserPayload extends SignupModel{
-  
+export class UserPayload extends SignupModel {
+  id: string = '';
 }
