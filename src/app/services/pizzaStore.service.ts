@@ -1,12 +1,24 @@
-import { signal, computed } from '@angular/core';
+import { signal, computed, inject } from '@angular/core';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { PizzaState } from '../../models/pizzas/pizzaState.model';
+import { PizzaDbService } from './pizzaDb.service';
 
 export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   statePizza = this.pizzaState.asReadonly();
 
   pizzas = computed(() => this.statePizza()?.pizzas);
+
+  pizzaDbService = inject(PizzaDbService);
+
+  constructor() {
+    const pizzas = this.getLocalPizzas();
+    if (!!pizzas) {
+      this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
+    } else {
+      this.getPizzas();
+    }
+  }
 
   addPizza(pizza: Pizza) {
     const newPizzas = [...this.pizzaState()?.pizzas, pizza];
@@ -34,5 +46,23 @@ export class PizzaStoreService {
       ...pizzaState,
       pizzas: newPizzas,
     }));
+  }
+
+  async getPizzas() {
+    const pizzas = await this.pizzaDbService.getAllResources();
+    this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
+    this.setLocalPizzas(pizzas);
+  }
+
+  setLocalPizzas(pizzas: Pizza[]) {
+    localStorage.setItem('pizzas', JSON.stringify(pizzas));
+  }
+
+  getLocalPizzas() {
+    return JSON.parse(localStorage.getItem('pizzas')!) as Pizza[];
+  }
+
+  removeLocalPizzas() {
+    localStorage.removeItem('pizzas');
   }
 }
