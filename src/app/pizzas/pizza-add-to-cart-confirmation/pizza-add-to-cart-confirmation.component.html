@@ -1,0 +1,67 @@
+<div
+  class="bg-white p-12 overflow-y-auto scrollbar max-width-2xl max-h-80 text-black rounded-2xl shadow-2xl"
+>
+  <h2 class="font-semibold border-b-2 text-3xl">
+    <span>Add To Cart Confirmation</span>
+  </h2>
+  @for(cart of carts(); track cart.id){ 
+    calculateTotal (cart)
+    <p class="flex justify-between items-center py-2 mt-2">
+      <span class="font-light">Product</span>
+      <span class="font-semibold">{{ cart.name }}</span>
+    </p>
+    <p class="flex justify-between items-center py-2 mt-10">
+      <span class="font-light">Price </span>
+      <span class="font-semibold">${{ cart.price }}</span>
+    </p>
+    <p class="flex justify-between items-center py-2 mt-2">
+      <span class="font-light">Quantity </span>
+      <span
+        class="flex flex-col gap-4 justify-center items-center font-semibold text-end"
+      >
+        <button
+          class="border border-none text-end"
+          (click)="increaseQuantity(cart.id)"
+        >
+          <!-- <FaPlus size="15px" class="text-indigo-500" /> -->
+        </button>
+
+        <span class="text-end">{{ cart.quantity }}</span>
+
+        <button
+          class="border border-none text-end"
+          (click)="decreaseQuantity(cart.id)"
+        >
+          <!-- <FaMinus size="15px" class="text-rose-500" /> -->
+        </button>
+      </span>
+    </p>
+
+    <p
+      class="flex justify-between items-center py-2 border-t-2 border-b-2 mt-4"
+    >
+      <span class="font-light">Sub Total</span>
+      <span class="font-semibold text-wrap">{{subTotal()}}</span>
+    </p>
+  }
+  <p class="flex justify-between items-center py-2 border-b-2 mt-8">
+    <span class="font-light">Total</span>
+    <span class="font-semibold text-wrap">{{total()}}</span>
+  </p>
+  <div class="flex gap-2 justify-between items-center w-full mt-8">
+    <button
+      type="button"
+      class="flex-1 border-indigo-900 border-2 bg-white text-indigo-900 hover:bg-indigo-900 hover:text-indigo-100 rounded-lg px-2 py-4 font-semibold"
+      (click)="addToCart(carts())"
+    >
+      Add To Cart
+    </button>
+    <button
+      type="button"
+      class="flex-1 border-rose-900 border-2 bg-white text-rose-900 hover:bg-rose-900 hover:text-rose-100 rounded-lg px-2 py-4 font-semibold"
+      (backToPizza)="backToPizza()"
+    >
+      Back To Pizza
+    </button>
+  </div>
+</div>

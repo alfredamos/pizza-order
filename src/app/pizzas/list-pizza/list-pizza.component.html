@@ -1,0 +1,43 @@
+<div
+  class="grid grid-cols-1 gap-2 m-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+>
+  @for(pizza of pizzas(); track pizza.id){
+  <div
+    class="card card-compact bg-base-100 w-full shadow-xl text-stone-700 m-2"
+  >
+    <figure>
+      <img
+        [src]="pizza.image"
+        [alt]="pizza.name"
+        height="80"
+        width="80"
+        class="object-cover w-full h-48"
+      />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">
+        <a routerLink="`/pizzas/{{ pizza.id }}/detail`">{{pizza.name}}</a>
+      </h2>
+      <p>${{ pizza.price }}</p>
+      <p>{{ pizza.description }}</p>
+      <div class="card-actions justify-end">
+        <button class="btn btn-primary" (click)="addToCart(pizza)">
+          Buy Now
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+@if(isAddToCart()){
+<app-add-pizza-item
+  [isAddToCart]="isAddToCart()"
+  [carts]="carts()"
+  (onAddToCart)="toCart($event)"
+  (onBackToList)="backToList()"
+  (onDecreaseQuantity)="decreaseQuantity($event)"
+  (onIncreaseQuantity)="increaseQuantity($event)"
+/>
+
+}

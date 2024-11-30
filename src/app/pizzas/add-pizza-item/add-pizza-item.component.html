@@ -1,0 +1,10 @@
+<app-modal-alert [open]="isAddToCart()" (onClose)="backToList()">
+      <app-pizza-add-to-cart-confirmation
+        (onAddToCart)="addToCart($event)"
+        (onBackToPizza)="backToList()"
+        [carts]="carts()"
+        (onDecreaseQuantity)="decreaseQuantity($event)"
+        (onIncreaseQuantity)="increaseQuantity($event)"
+      />
+      
+</app-modal-alert>
