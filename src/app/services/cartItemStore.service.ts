@@ -1,6 +1,6 @@
-import { computed, signal } from "@angular/core";
-import { CartItemState } from "../../models/cartItems/cartItem.state";
-import { CartItem } from "../../models/orders/cartItem.model";
+import { computed, signal } from '@angular/core';
+import { CartItemState } from '../../models/cartItems/cartItem.state';
+import { CartItem } from '../../models/cartItems/cartItem.model';
 
 export class CartItemStoreService {
   private cartItemState = signal<CartItemState>({ ...new CartItemState() });

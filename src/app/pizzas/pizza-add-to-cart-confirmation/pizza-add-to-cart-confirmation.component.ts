@@ -1,5 +1,5 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CartItem } from '../../../models/orders/cartItem.model';
+import { CartItem } from '../../../models/cartItems/cartItem.model';
 
 @Component({
   selector: 'app-pizza-add-to-cart-confirmation',

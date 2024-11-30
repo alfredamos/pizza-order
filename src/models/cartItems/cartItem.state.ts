@@ -1,5 +1,4 @@
-import { CartItem } from "../orders/cartItem.model";
-
+import { CartItem } from "./cartItem.model";
 export class CartItemState{
   cartItems: CartItem[] = [];
 }
