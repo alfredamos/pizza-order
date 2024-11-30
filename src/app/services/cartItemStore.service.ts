@@ -1,7 +1,10 @@
-import { computed, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { CartItemState } from '../../models/cartItems/cartItem.state';
 import { CartItem } from '../../models/cartItems/cartItem.model';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CartItemStoreService {
   private cartItemState = signal<CartItemState>({ ...new CartItemState() });
   stateCartItem = this.cartItemState.asReadonly();

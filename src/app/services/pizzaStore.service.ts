@@ -1,8 +1,11 @@
-import { signal, computed, inject } from '@angular/core';
+import { signal, computed, inject, Injectable } from '@angular/core';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { PizzaState } from '../../models/pizzas/pizzaState.model';
 import { PizzaDbService } from './pizzaDb.service';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   statePizza = this.pizzaState.asReadonly();
@@ -12,6 +15,7 @@ export class PizzaStoreService {
   pizzaDbService = inject(PizzaDbService);
 
   constructor() {
+    console.log('In pizzaStore-constructor!!!');
     const pizzas = this.getLocalPizzas();
     if (!!pizzas) {
       this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));

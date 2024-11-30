@@ -8,6 +8,7 @@ import { MustLoginComponent } from './auth/must-login/must-login.component';
 import { NotAllowedComponent } from './auth/not-allowed/not-allowed.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SomethingWrongComponent } from './auth/something-wrong/something-wrong.component';
+import { ListPizzaComponent } from './pizzas/list-pizza/list-pizza.component';
 
 export const routes: Routes = [
   {
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'something-wrong', component: SomethingWrongComponent },
   { path: 'signup', component: SignupComponent },
+  { path: '', component: ListPizzaComponent },
 ];

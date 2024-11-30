@@ -1,7 +1,10 @@
-import { signal, computed } from '@angular/core';
+import { signal, computed, Injectable } from '@angular/core';
 import { UserPayload } from '../../models/auth/userPayload.model';
 import { UserState } from '../../models/users/userState.model';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UserStoreService {
   private userState = signal<UserState>({ ...new UserState() });
   stateUser = this.userState.asReadonly();

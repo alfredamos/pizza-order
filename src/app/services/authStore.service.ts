@@ -1,16 +1,16 @@
-import { computed, inject, signal, Injectable } from "@angular/core";
-import { AuthState } from "../../models/auth/authState.model";
-import { LoginModel } from "../../models/auth/login.model";
-import { AuthDbService } from "./authDb.service";
+import { computed, inject, signal, Injectable } from '@angular/core';
+import { AuthState } from '../../models/auth/authState.model';
+import { LoginModel } from '../../models/auth/login.model';
+import { AuthDbService } from './authDb.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthStoreService{
+export class AuthStoreService {
   //----> State
-  private authState = signal<AuthState>({...(new AuthState())});
-  stateAuth = this.authState.asReadonly(); 
-  
+  private authState = signal<AuthState>({ ...new AuthState() });
+  stateAuth = this.authState.asReadonly();
+
   //----> Getters
   isLoggedIn = computed(() => this.stateAuth()?.isLoggedIn);
   isAdmin = computed(() => this.stateAuth()?.isAdmin);
@@ -18,30 +18,37 @@ export class AuthStoreService{
   token = computed(() => this.stateAuth()?.token);
 
   //----> Needed services
-  authDbService = inject(AuthDbService)
+  authDbService = inject(AuthDbService);
 
-  async login(loginModel: LoginModel){
+  constructor() {
+    const stateOfAuth = this.getLocalAuth();
+
+    if (!!stateOfAuth) {
+      this.authState.set(stateOfAuth);
+    }
+  }
+
+  async login(loginModel: LoginModel) {
     const authState = await this.authDbService.login(loginModel);
-    console.log("In store, authState : ", authState)
+    console.log('In store, authState : ', authState);
     this.authState.set(authState);
-    this.setLocalData(authState);
+    this.setLocalAuth(authState);
   }
 
-  logout(){
+  logout() {
     this.authState.set(new AuthState());
-    this.removeLocalData();
+    this.removeLocalAuth();
   }
 
-  setLocalData(authState: AuthState){
-    localStorage.setItem("auth", JSON.stringify(authState))
+  setLocalAuth(authState: AuthState) {
+    localStorage.setItem('auth', JSON.stringify(authState));
   }
 
-  getLocalData(){
-    return JSON.parse(localStorage.getItem("auth")!)
+  getLocalAuth() {
+    return JSON.parse(localStorage.getItem('auth')!) as AuthState;
   }
 
-  removeLocalData(){
-    localStorage.removeItem("auth")
+  removeLocalAuth() {
+    localStorage.removeItem('auth');
   }
-
 }

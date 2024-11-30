@@ -1,7 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { inject} from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-
 
 export class ApiClientService<T> {
   http = inject(HttpClient);
@@ -50,7 +49,7 @@ export class ApiClientService<T> {
     const response$ = this.http.get<T[]>(this.baseUrl);
 
     const response = await firstValueFrom(response$);
-
+    console.log({ url: this.baseUrl, response });
     return response;
   }
 }

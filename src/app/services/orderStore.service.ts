@@ -1,7 +1,10 @@
-import { signal, computed } from '@angular/core';
+import { signal, computed, Injectable } from '@angular/core';
 import { OrderState } from '../../models/orders/orderState.model';
 import { OrderPayload } from '../../models/auth/orderPayload.model';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class OrderStoreService {
   private orderState = signal<OrderState>({ ...new OrderState() });
   stateOrder = this.orderState.asReadonly();

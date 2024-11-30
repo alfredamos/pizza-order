@@ -16,7 +16,7 @@
     </figure>
     <div class="card-body">
       <h2 class="card-title">
-        <a routerLink="`/pizzas/{{ pizza.id }}/detail`">{{pizza.name}}</a>
+        <a routerLink="`/pizzas/{{ pizza.id }}/detail`">{{ pizza.name }}</a>
       </h2>
       <p>${{ pizza.price }}</p>
       <p>{{ pizza.description }}</p>
@@ -33,7 +33,7 @@
 @if(isAddToCart()){
 <app-add-pizza-item
   [isAddToCart]="isAddToCart()"
-  [carts]="carts()"
+  [carts]="cartItems()"
   (onAddToCart)="toCart($event)"
   (onBackToList)="backToList()"
   (onDecreaseQuantity)="decreaseQuantity($event)"
