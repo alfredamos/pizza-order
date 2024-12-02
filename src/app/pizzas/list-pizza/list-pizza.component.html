@@ -32,12 +32,8 @@
 
 @if(isAddToCart()){
 <app-add-pizza-item
-  [isAddToCart]="isAddToCart()"
-  [carts]="cartItems()"
   (onAddToCart)="toCart($event)"
   (onBackToList)="backToList()"
-  (onDecreaseQuantity)="decreaseQuantity($event)"
-  (onIncreaseQuantity)="increaseQuantity($event)"
 />
 
 }

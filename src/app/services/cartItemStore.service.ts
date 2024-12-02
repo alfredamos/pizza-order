@@ -10,6 +10,7 @@ export class CartItemStoreService {
   stateCartItem = this.cartItemState.asReadonly();
 
   cartItems = computed(() => this.stateCartItem()?.cartItems);
+  isAddToCart = computed(() => this.stateCartItem()?.isAddToCart);
 
   addCartItem(cart: CartItem) {
     const newCartItems = [...this.cartItemState()?.cartItems, cart];
@@ -37,5 +38,31 @@ export class CartItemStoreService {
       ...cartState,
       cartItems: newCartItems,
     }));
+  }
+
+  editAllCatItems(carts: CartItem[]) {
+    this.cartItemState.update((cartState) => ({
+      ...cartState,
+      cartItems: carts,
+    }));
+  }
+
+  changeIsAddToCart(isAddCart: boolean) {
+    this.cartItemState.update((cartState) => ({
+      ...cartState,
+      isAddToCart: isAddCart,
+    }));
+  }
+
+  setCartItemsLocal(carts: CartItem[]) {
+    localStorage.setItem('carts', JSON.stringify(carts));
+  }
+
+  getCartItemsLocal() {
+    return JSON.parse(localStorage.getItem('carts')!) as CartItem[];
+  }
+
+  removeCartItemsLocal() {
+    localStorage.removeItem('carts');
   }
 }
