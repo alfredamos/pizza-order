@@ -15,13 +15,12 @@ export class AddPizzaItemComponent {
   isAddToCart = this.cartItemStoreService.isAddToCart;
 
   onAddToCart = output<CartItem[]>();
-  onBackToList = output<void>();
 
   addToCart(carts: CartItem[]) {
     this.onAddToCart.emit(carts);
   }
 
   backToList() {
-    this.onBackToList.emit();
+    this.cartItemStoreService.changeIsAddToCart(false);
   }
 }

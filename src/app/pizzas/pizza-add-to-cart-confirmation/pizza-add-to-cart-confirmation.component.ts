@@ -12,48 +12,31 @@ import { CartItemStoreService } from '../../services/cartItemStore.service';
   viewProviders: [provideIcons({ heroPlus, heroMinus })],
 })
 export class PizzaAddToCartConfirmationComponent {
-  total = signal(0);
-  subTotal = signal(0);
-
   cartItemStoreService = inject(CartItemStoreService);
 
   carts = this.cartItemStoreService?.cartItems;
   onAddToCart = output<CartItem[]>();
-  onBackToPizza = output<void>();
 
   addToCart(carts: CartItem[]) {
+    console.log('go back!!!');
     this.onAddToCart.emit(carts);
   }
 
   backToPizza() {
-    this.onBackToPizza.emit();
+    this.cartItemStoreService.changeIsAddToCart(false);
   }
 
-  quantityIncrease($event: Event, cart: CartItem) {
-    console.log({ $event });
-
-    this.subTotal.set(cart?.price * cart?.quantity);
-    this.total.update((oldTotal) => oldTotal + this.subTotal());
-
-    if (Number.isNaN(this.total())) this.total.set(Number(''));
-
+  quantityIncrease(cart: CartItem) {
     console.log('Quantity is increased');
-
     const newCart = {
       ...cart,
       quantity: cart.quantity >= 19 ? 20 : cart.quantity + 1,
     };
+
     this.cartItemStoreService.editCartItem(newCart);
   }
 
-  quantityDecrease($event: Event, cart: CartItem) {
-    $event.stopPropagation();
-
-    this.subTotal.set(cart?.price * cart?.quantity);
-    this.total.update((oldTotal) => oldTotal - this.subTotal());
-
-    if (Number.isNaN(this.total())) this.total.set(Number(''));
-
+  quantityDecrease(cart: CartItem) {
     console.log('Quantity is decreased');
 
     const newCart = {
@@ -65,9 +48,14 @@ export class PizzaAddToCartConfirmationComponent {
     if (cart?.quantity > 0) this.cartItemStoreService.editCartItem(newCart);
   }
 
-  /* calculateTotal(cart: CartItem) {
-    this.subTotal = cart?.price * cart?.quantity;
-    this.total += this.subTotal;
-    if (Number.isNaN(this.total)) this.total = Number('');
-  } */
+  subTotal(cart: CartItem) {
+    return cart.quantity * cart.price;
+  }
+
+  total() {
+    return this.carts()?.reduce(
+      (sum, current) => sum + current.price * current.quantity,
+      0
+    );
+  }
 }

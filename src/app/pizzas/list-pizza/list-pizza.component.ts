@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Pizza } from '../../../models/pizzas/pizza.model';
 import { AddPizzaItemComponent } from '../add-pizza-item/add-pizza-item.component';
 import { CartItem } from '../../../models/cartItems/cartItem.model';
@@ -13,16 +13,20 @@ import { cartUtilService } from '../../services/cartUtil.service';
   templateUrl: './list-pizza.component.html',
   styleUrl: './list-pizza.component.css',
 })
-export class ListPizzaComponent {
+export class ListPizzaComponent implements OnInit {
   cartItemStoreService = inject(CartItemStoreService);
   pizzaStoreService = inject(PizzaStoreService);
   router = inject(Router);
   cartUtilService = inject(cartUtilService);
 
-  pizzas = this.pizzaStoreService?.pizzas;
+  pizzas = signal<Pizza[]>([]);
   cartItems = this.cartItemStoreService?.cartItems;
 
   isAddToCart = this.cartItemStoreService?.isAddToCart;
+
+  ngOnInit(): void {
+    this.pizzas.set(this.pizzaStoreService?.pizzas());
+  }
 
   addToCart(pizza: Pizza) {
     console.log('Add to cart');
@@ -42,6 +46,10 @@ export class ListPizzaComponent {
 
     this.cartItemStoreService.editAllCatItems(newCartItems);
     this.cartItemStoreService.setCartItemsLocal(newCartItems);
+
+    console.log({ carts });
+
+    this.cartItemStoreService.changeIsAddToCart(false);
 
     this.router.navigateByUrl('/orders/cart');
   }

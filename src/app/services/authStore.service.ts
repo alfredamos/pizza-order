@@ -2,6 +2,8 @@ import { computed, inject, signal, Injectable } from '@angular/core';
 import { AuthState } from '../../models/auth/authState.model';
 import { LoginModel } from '../../models/auth/login.model';
 import { AuthDbService } from './authDb.service';
+import { CartItemStoreService } from './cartItemStore.service';
+import { PizzaStoreService } from './pizzaStore.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,8 @@ export class AuthStoreService {
 
   //----> Needed services
   authDbService = inject(AuthDbService);
+  //cartItemStoreService = inject(CartItemStoreService);
+  //pizzaStoreService = inject(PizzaStoreService);
 
   constructor() {
     const stateOfAuth = this.getLocalAuth();
@@ -37,6 +41,7 @@ export class AuthStoreService {
 
   logout() {
     this.authState.set(new AuthState());
+
     this.removeLocalAuth();
   }
 

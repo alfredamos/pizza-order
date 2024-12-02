@@ -31,9 +31,6 @@
 </div>
 
 @if(isAddToCart()){
-<app-add-pizza-item
-  (onAddToCart)="toCart($event)"
-  (onBackToList)="backToList()"
-/>
+<app-add-pizza-item (onAddToCart)="toCart($event)" />
 
 }

@@ -2,6 +2,7 @@ import { signal, computed, inject, Injectable } from '@angular/core';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { PizzaState } from '../../models/pizzas/pizzaState.model';
 import { PizzaDbService } from './pizzaDb.service';
+import { AuthStoreService } from './authStore.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class PizzaStoreService {
     if (!!pizzas) {
       this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
     } else {
-      this.getPizzas();
+      this.getPizzas().then((data) => console.log(data));
     }
   }
 

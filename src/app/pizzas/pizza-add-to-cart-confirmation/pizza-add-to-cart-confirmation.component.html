@@ -1,5 +1,6 @@
 <div
   class="bg-white p-12 overflow-y-auto scrollbar max-width-2xl max-h-80 text-black rounded-2xl shadow-2xl"
+  (click)="$event.stopPropagation()"
 >
   <h2 class="font-semibold border-b-2 text-3xl">
     <span>Add To Cart Confirmation</span>
@@ -21,7 +22,7 @@
       <button
         type="button"
         class="border border-none text-end"
-        (change)="quantityIncrease($event, cart)"
+        (click)="quantityIncrease(cart)"
       >
         <ng-icon
           name="heroPlus"
@@ -35,7 +36,7 @@
       <button
         type="button"
         class="border border-none text-end"
-        (change)="quantityDecrease($event, cart)"
+        (click)="quantityDecrease(cart)"
       >
         <ng-icon
           name="heroMinus"
@@ -48,7 +49,7 @@
 
   <p class="flex justify-between items-center py-2 border-t-2 border-b-2 mt-4">
     <span class="font-light">Sub Total</span>
-    <span class="font-semibold text-wrap">{{ subTotal() }}</span>
+    <span class="font-semibold text-wrap">{{ subTotal(cart) }}</span>
   </p>
   }
   <p class="flex justify-between items-center py-2 border-b-2 mt-8">
@@ -66,7 +67,7 @@
     <button
       type="button"
       class="flex-1 border-rose-900 border-2 bg-white text-rose-900 hover:bg-rose-900 hover:text-rose-100 rounded-lg px-2 py-4 font-semibold"
-      (backToPizza)="backToPizza()"
+      (click)="backToPizza()"
     >
       Back To Pizza
     </button>

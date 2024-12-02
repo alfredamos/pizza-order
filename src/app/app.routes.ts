@@ -9,6 +9,8 @@ import { NotAllowedComponent } from './auth/not-allowed/not-allowed.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SomethingWrongComponent } from './auth/something-wrong/something-wrong.component';
 import { ListPizzaComponent } from './pizzas/list-pizza/list-pizza.component';
+import { CartComponent } from './orders/cart/cart.component';
+import { CheckoutComponent } from './orders/checkout/checkout.component';
 
 export const routes: Routes = [
   {
@@ -27,5 +29,15 @@ export const routes: Routes = [
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'something-wrong', component: SomethingWrongComponent },
   { path: 'signup', component: SignupComponent },
+  {
+    path: 'orders/cart',
+    component: CartComponent,
+    canActivate: [protectedGuard],
+  },
+  {
+    path: 'orders/checkout',
+    component: CheckoutComponent,
+    canActivate: [protectedGuard],
+  },
   { path: '', component: ListPizzaComponent },
 ];
