@@ -11,6 +11,12 @@ import { SomethingWrongComponent } from './auth/something-wrong/something-wrong.
 import { ListPizzaComponent } from './pizzas/list-pizza/list-pizza.component';
 import { CartComponent } from './orders/cart/cart.component';
 import { CheckoutComponent } from './orders/checkout/checkout.component';
+import { TablePizzaComponent } from './pizzas/table-pizza/table-pizza.component';
+import { adminGuard } from '../guard/admin.guard';
+import { EditPizzaComponent } from './pizzas/edit-pizza/edit-pizza.component';
+import { DeletePizzaComponent } from './pizzas/delete-pizza/delete-pizza.component';
+import { NewPizzaComponent } from './pizzas/new-pizza/new-pizza.component';
+import { DetailPizzaComponent } from './pizzas/detail-pizza/detail-pizza.component';
 
 export const routes: Routes = [
   {
@@ -40,4 +46,29 @@ export const routes: Routes = [
     canActivate: [protectedGuard],
   },
   { path: '', component: ListPizzaComponent },
+  {
+    path: 'pizzas',
+    component: TablePizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
+  {
+    path: 'pizzas/new',
+    component: NewPizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
+  {
+    path: 'pizzas/:id/edit',
+    component: EditPizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
+  {
+    path: 'pizzas/:id/delete',
+    component: DeletePizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
+  {
+    path: 'pizzas/:id/detail',
+    component: DetailPizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
 ];

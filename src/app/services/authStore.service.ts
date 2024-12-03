@@ -21,8 +21,6 @@ export class AuthStoreService {
 
   //----> Needed services
   authDbService = inject(AuthDbService);
-  //cartItemStoreService = inject(CartItemStoreService);
-  //pizzaStoreService = inject(PizzaStoreService);
 
   constructor() {
     const stateOfAuth = this.getLocalAuth();

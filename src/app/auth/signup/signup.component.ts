@@ -1,8 +1,8 @@
 import { Component, signal, inject } from '@angular/core';
 import { SignupModel } from '../../../models/auth/signup.model';
-import { AuthStoreService } from '../../services/authStore.service';
 import { Router } from '@angular/router';
 import { SignupFormComponent } from '../../forms/auth/signup-form/signup-form.component';
+import { AuthDbService } from '../../services/authDb.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,16 +13,16 @@ import { SignupFormComponent } from '../../forms/auth/signup-form/signup-form.co
 export class SignupComponent {
   initialSignupInfo = signal<SignupModel>({ ...new SignupModel() });
 
-  authStoreService = inject(AuthStoreService);
+  authDbService = inject(AuthDbService);
   router = inject(Router);
 
   backToList() {
-    this.router.navigate(['/pizzas']);
+    this.router.navigate(['/']);
   }
 
-  signupSubmit(signupModel: SignupModel) {
-    this.authStoreService.login(signupModel);
+  async signupSubmit(signupModel: SignupModel) {
+    await this.authDbService.signup(signupModel);
 
-    this.router.navigate(['/pizzas']);
+    this.router.navigate(['/']);
   }
 }

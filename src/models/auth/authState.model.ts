@@ -1,4 +1,4 @@
-import { UserResponseModel } from "./userResponse.model";
+import { UserResponseModel } from './userResponse.model';
 
 export class AuthState {
   isLoggedIn: boolean = false;

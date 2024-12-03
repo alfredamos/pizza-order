@@ -1,4 +1,4 @@
-import { Role } from "../role.model";
+import { Role } from '../role.model';
 
 export class UserResponseModel {
   id: string = '';
@@ -9,4 +9,5 @@ export class UserResponseModel {
   role!: Role;
   token?: string;
   image!: string;
+  address!: string;
 }

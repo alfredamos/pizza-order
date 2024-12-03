@@ -20,6 +20,7 @@ export class EditProfileFormComponent {
     name: ['', [Validators.required]],
     email: ['', [Validators.required]],
     phone: ['', [Validators.required]],
+    address: ['', [Validators.required]],
     password: ['', [Validators.required]],
     gender: [''],
   });
@@ -32,6 +33,7 @@ export class EditProfileFormComponent {
       email: this.currentUser()?.email,
       gender: this.currentUser()?.gender,
       name: this.currentUser()?.name,
+      address: this.currentUser()?.address,
       phone: this.currentUser()?.phone,
     });
   }

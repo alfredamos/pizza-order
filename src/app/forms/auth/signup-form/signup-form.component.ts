@@ -2,12 +2,11 @@ import { Component, inject, input, output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { SignupModel } from '../../../../models/auth/signup.model';
 
-
 @Component({
   selector: 'app-signup-form',
   imports: [ReactiveFormsModule],
   templateUrl: './signup-form.component.html',
-  styleUrl: './signup-form.component.css'
+  styleUrl: './signup-form.component.css',
 })
 export class SignupFormComponent {
   initialSignupInfo = input.required<SignupModel>();
@@ -20,6 +19,7 @@ export class SignupFormComponent {
     name: ['', [Validators.required]],
     email: ['', [Validators.required]],
     phone: ['', [Validators.required]],
+    address: ['', [Validators.required]],
     password: ['', [Validators.required]],
     confirmPassword: ['', [Validators.required]],
     gender: [''],
