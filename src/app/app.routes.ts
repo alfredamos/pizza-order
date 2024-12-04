@@ -71,4 +71,9 @@ export const routes: Routes = [
     component: DetailPizzaComponent,
     canActivate: [protectedGuard, adminGuard],
   },
+  {
+    path: 'users',
+    component: DetailPizzaComponent,
+    canActivate: [protectedGuard, adminGuard],
+  },
 ];
