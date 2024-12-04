@@ -1,4 +1,8 @@
-<form (ngSubmit)="editPizza()" [formGroup]="pizzaForm">
+<form
+  (ngSubmit)="editPizza()"
+  [formGroup]="pizzaForm"
+  class="bg-white text-slate-800 max-w-lg flex flex-col justify-center items-center mx-auto rounded-xl shadow-2xl py-10 mt-10"
+>
   <h4 class="font-bold text-slate-800 text-2xl mb-6">
     {{ formName() }} Pizza Form
   </h4>
@@ -93,14 +97,12 @@
     >
       Submit
     </button>
-    <div class="flex w-full px-10">
-      <button
-        type="button"
-        class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-white text-rose-900 font-bold text-lg rounded-lg flex-1 mr-4"
-        (click)="backToList()"
-      >
-        cancel
-      </button>
-    </div>
+    <button
+      type="button"
+      class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-white text-rose-900 font-bold text-lg rounded-lg flex-1 mr-4"
+      (click)="backToList()"
+    >
+      cancel
+    </button>
   </div>
 </form>

@@ -1,1 +1,3 @@
-<p>pizza-view-dialog works!</p>
+<app-modal-alert [isAddToCart]="isView()" (onClose)="backToList()">
+  <app-pizza-view-card [pizza]="pizza()" (onCancel)="backToList()" />
+</app-modal-alert>

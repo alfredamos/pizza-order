@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavigationCancel, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { NavigationBarComponent } from './util/navigation-bar/navigation-bar.component';
-//import { NgIcon, provideIcons } from '@ng-icons/core';
+import { SideBarComponent } from './util/side-bar/side-bar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationBarComponent],
+  imports: [RouterOutlet, NavigationBarComponent, SideBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

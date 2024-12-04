@@ -1,0 +1,57 @@
+<aside class="w-70 font-semibold mr-6">
+  <ul class="flex flex-col gap-y-2 mt-10 text-semibold">
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/"
+        ><ng-icon
+          name="heroHome"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+      /></a>
+    </li>
+    @if(isLoggedIn()){
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/change-password">
+        <ng-icon
+          name="heroPencilSquare"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+      /></a>
+    </li>
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/edit-profile">
+        <ng-icon
+          name="lucideUserPen"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+      /></a>
+    </li>
+    } @if(isAdmin()){
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/pizzas/list">
+        <ng-icon
+          name="heroCake"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+        />
+      </a>
+    </li>
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/users">
+        <ng-icon
+          name="lucideUsers"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+      /></a>
+    </li>
+    }@if(isLoggedIn()){
+    <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/logout">
+        <ng-icon
+          name="heroArrowRightStartOnRectangle,"
+          size="40px"
+          class="text-rose-500 font-extrabold"
+      /></a>
+    </li>
+    }
+  </ul>
+</aside>
