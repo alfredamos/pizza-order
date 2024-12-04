@@ -3,17 +3,21 @@ import { Pizza } from '../../../models/pizzas/pizza.model';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PizzaStoreService } from '../../services/pizzaStore.service';
+import { DeleteViewEditButtonsPizzaTableComponent } from '../delete-view-edit-buttons-pizza-table/delete-view-edit-buttons-pizza-table.component';
+import { DeletePizzaComponent } from "../delete-pizza/delete-pizza.component";
 
 @Component({
   selector: 'app-table-pizza',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DeleteViewEditButtonsPizzaTableComponent, DeletePizzaComponent],
   templateUrl: './table-pizza.component.html',
   styleUrl: './table-pizza.component.css',
 })
 export class TablePizzaComponent {
-  pizzaStoreService = inject(PizzaStoreService);
-  enteredPizzas = this.pizzaStoreService?.pizzas;
   searchTerm = '';
+
+  pizzaStoreService = inject(PizzaStoreService);
+
+  enteredPizzas = this.pizzaStoreService?.pizzas;
 
   submitSearch(event: Event) {
     event.preventDefault();
@@ -27,9 +31,5 @@ export class TablePizzaComponent {
     );
   }
 
-  viewPizzaConfirmation() {}
-
-  pizzaEditConfirmation() {}
-
-  pizzaDeleteConfirmation() {}
+  
 }
