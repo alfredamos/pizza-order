@@ -1,8 +1,6 @@
 import { signal, computed, inject, Injectable } from '@angular/core';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { PizzaState } from '../../models/pizzas/pizzaState.model';
-import { PizzaDbService } from './pizzaDb.service';
-import { AuthStoreService } from './authStore.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,25 +8,14 @@ import { AuthStoreService } from './authStore.service';
 export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   statePizza = this.pizzaState.asReadonly();
-  isAdded = signal(false);
 
-  pizzas = computed(() => this.statePizza()?.pizzas);
+  pizzas = computed(() => {
+    const localStoragePizzas = this.getLocalStoragePizzas();
+    console.log('local-pizzas : ', localStoragePizzas);
+    return this.statePizza()?.pizzas ?? this.localStoragePizza;
+  });
 
-  pizzaDbService = inject(PizzaDbService);
-
-  constructor() {
-    console.log('In pizzaStore-constructor!!!');
-    const pizzas = this.getLocalPizzas();
-    console.log('At point 1, pizzas : ', pizzas);
-    if (pizzas?.length > 0 && !this.isAdded()) {
-      console.log('At point 2, pizzas : ', pizzas);
-      this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
-    } else if (this.isAdded()) {
-      console.log('At point 3, pizzas');
-      this.getPizzas().then((data) => console.log(data));
-      this.isAdded.set(false);
-    }
-  }
+  localStoragePizza = computed(() => this.getLocalStoragePizzas());
 
   addPizza(pizza: Pizza) {
     const newPizzas = [...this.pizzaState()?.pizzas, pizza];
@@ -36,10 +23,6 @@ export class PizzaStoreService {
       ...pizzaState,
       pizzas: newPizzas,
     }));
-    this.pizzaDbService.createResource(pizza);
-
-    console.log('pizza added!!!');
-    this.isAdded.set(true);
   }
 
   deletePizza(pizzaId: string) {
@@ -62,23 +45,21 @@ export class PizzaStoreService {
     }));
   }
 
-  async getPizzas() {
-    const pizzas = await this.pizzaDbService.getAllResources();
+  updatePizzaState(pizzas: Pizza[]) {
     this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
-    this.setLocalPizzas(pizzas);
-    console.log('At get-pizzas, pizzas : ', pizzas);
-    return pizzas;
+    this.removeLocalStoragePizzas();
+    this.setLocalStoragePizzas(pizzas);
   }
 
-  setLocalPizzas(pizzas: Pizza[]) {
+  setLocalStoragePizzas(pizzas: Pizza[]) {
     localStorage.setItem('pizzas', JSON.stringify(pizzas));
   }
 
-  getLocalPizzas() {
+  private getLocalStoragePizzas() {
     return JSON.parse(localStorage.getItem('pizzas')!) as Pizza[];
   }
 
-  removeLocalPizzas() {
+  removeLocalStoragePizzas() {
     localStorage.removeItem('pizzas');
   }
 }

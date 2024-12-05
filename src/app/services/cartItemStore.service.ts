@@ -54,15 +54,15 @@ export class CartItemStoreService {
     }));
   }
 
-  setCartItemsLocal(carts: CartItem[]) {
+  setLocalStorageCartItems(carts: CartItem[]) {
     localStorage.setItem('carts', JSON.stringify(carts));
   }
 
-  getCartItemsLocal() {
+  getLocalStorageCartItems() {
     return JSON.parse(localStorage.getItem('carts')!) as CartItem[];
   }
 
-  removeCartItemsLocal() {
+  removeLocalStorageCartItems() {
     localStorage.removeItem('carts');
   }
 }

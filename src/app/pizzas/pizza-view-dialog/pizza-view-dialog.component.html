@@ -1,3 +1,7 @@
 <app-modal-alert [isAddToCart]="isView()" (onClose)="backToList()">
-  <app-pizza-view-card [pizza]="pizza()" (onCancel)="backToList()" />
+  <app-pizza-view-card
+    [pizza]="pizza()"
+    (onCancel)="backToList()"
+    (click)="$event.stopPropagation()"
+  />
 </app-modal-alert>

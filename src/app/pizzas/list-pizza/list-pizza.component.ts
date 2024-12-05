@@ -6,6 +6,7 @@ import { PizzaStoreService } from '../../services/pizzaStore.service';
 import { Router, RouterLink } from '@angular/router';
 import { CartItemStoreService } from '../../services/cartItemStore.service';
 import { cartUtilService } from '../../services/cartUtil.service';
+import { PizzaDbService } from '../../services/pizzaDb.service';
 
 @Component({
   selector: 'app-list-pizza',
@@ -15,17 +16,25 @@ import { cartUtilService } from '../../services/cartUtil.service';
 })
 export class ListPizzaComponent implements OnInit {
   cartItemStoreService = inject(CartItemStoreService);
+  pizzaDbService = inject(PizzaDbService);
   pizzaStoreService = inject(PizzaStoreService);
+
   router = inject(Router);
   cartUtilService = inject(cartUtilService);
 
-  pizzas = signal<Pizza[]>([]);
+  pizzas = this.pizzaStoreService.pizzas;
+
   cartItems = this.cartItemStoreService?.cartItems;
 
   isAddToCart = this.cartItemStoreService?.isAddToCart;
 
   ngOnInit(): void {
-    this.pizzas.set(this.pizzaStoreService?.pizzas());
+    this.loadPizza();
+  }
+
+  async loadPizza() {
+    const pizzas = await this.pizzaDbService.getAllResources();
+    this.pizzaStoreService.updatePizzaState(pizzas);
   }
 
   addToCart(pizza: Pizza) {
@@ -45,7 +54,7 @@ export class ListPizzaComponent implements OnInit {
     const newCartItems = carts?.filter((cart) => cart?.quantity !== 0);
 
     this.cartItemStoreService.editAllCatItems(newCartItems);
-    this.cartItemStoreService.setCartItemsLocal(newCartItems);
+    this.cartItemStoreService.setLocalStorageCartItems(newCartItems);
 
     console.log({ carts });
 

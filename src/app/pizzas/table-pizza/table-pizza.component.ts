@@ -1,10 +1,17 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { Pizza } from '../../../models/pizzas/pizza.model';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PizzaStoreService } from '../../services/pizzaStore.service';
 import { DeleteViewEditButtonsPizzaTableComponent } from '../delete-view-edit-buttons-pizza-table/delete-view-edit-buttons-pizza-table.component';
-import { DeletePizzaComponent } from '../delete-pizza/delete-pizza.component';
+import { PizzaDbService } from '../../services/pizzaDb.service';
+import { Pizza } from '../../../models/pizzas/pizza.model';
 
 @Component({
   selector: 'app-table-pizza',
@@ -12,20 +19,27 @@ import { DeletePizzaComponent } from '../delete-pizza/delete-pizza.component';
   templateUrl: './table-pizza.component.html',
   styleUrl: './table-pizza.component.css',
 })
-export class TablePizzaComponent {
+export class TablePizzaComponent implements OnInit {
   searchTerm = '';
 
+  pizzaDbService = inject(PizzaDbService);
   pizzaStoreService = inject(PizzaStoreService);
 
-  enteredPizzas = this.pizzaStoreService?.pizzas;
+  filteredPizzas = signal<Pizza[]>([]);
+  pizzas = this.pizzaStoreService.pizzas;
 
-  pizzaEffect = effect(() =>
-    console.log('table-pizza : ', this.enteredPizzas())
-  );
+  ngOnInit(): void {
+    this.loadPizza();
+  }
+
+  async loadPizza() {
+    const pizzas = await this.pizzaDbService.getAllResources();
+    this.pizzaStoreService.updatePizzaState(pizzas);
+  }
 
   submitSearch(event: Event) {
     event.preventDefault();
-    this.enteredPizzas()?.filter(
+    const filteredPizzas = this.pizzas()?.filter(
       (pizza) =>
         pizza.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         pizza.description
@@ -33,5 +47,7 @@ export class TablePizzaComponent {
           .includes(this.searchTerm.toLowerCase()) ||
         pizza.topping.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    this.filteredPizzas.set(filteredPizzas);
   }
 }

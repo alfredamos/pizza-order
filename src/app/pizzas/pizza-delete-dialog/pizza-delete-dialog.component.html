@@ -1,5 +1,6 @@
 <app-modal-alert [isAddToCart]="isDelete()">
   <app-pizza-delete-card
+    (click)="$event.stopPropagation()"
     (onBackToList)="backToList()"
     (onDelete)="deletePizza($event)"
     [pizza]="pizza()"

@@ -1,5 +1,6 @@
 <app-modal-alert [isAddToCart]="isEdit()" (onClose)="backToList()">
   <app-pizza-edit-card
+    (click)="$event.stopPropagation()"
     formName="Edit"
     [pizza]="pizza()"
     (onCancel)="backToList()"

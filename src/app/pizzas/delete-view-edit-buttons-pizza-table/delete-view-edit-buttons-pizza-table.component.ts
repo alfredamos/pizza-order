@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PizzaDeleteDialogComponent } from '../pizza-delete-dialog/pizza-delete-dialog.component';
 import { PizzaEditDialogComponent } from '../pizza-edit-dialog/pizza-edit-dialog.component';
 import { PizzaViewDialogComponent } from '../pizza-view-dialog/pizza-view-dialog.component';
+import { AuthStoreService } from '../../services/authStore.service';
 
 @Component({
   selector: 'app-delete-view-edit-buttons-pizza-table',
@@ -25,8 +26,11 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   isViewPizza = signal(false);
   refresh = signal(false);
 
+  authStoreService = inject(AuthStoreService);
   pizzaDbService = inject(PizzaDbService);
   router = inject(Router);
+
+  userId = this.authStoreService.currentUser()?.id;
 
   pizzaDeleteConfirmation() {
     this.isDeletePizza.update((oldIsDeletePizza) => !oldIsDeletePizza);
@@ -42,6 +46,8 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   }
 
   async editPizza(pizza: Pizza) {
+    console.log('Please edit me now!!!');
+    pizza.userId = this.userId;
     console.log('pizza info edited : ', pizza);
 
     await this.pizzaDbService.editResource(this.id(), pizza);
@@ -62,6 +68,7 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   }
 
   async deletePizza(id: string) {
+    console.log('Please delete me now!!!');
     console.log('pizza info deleted : ', id);
 
     await this.pizzaDbService.deleteResource(id);

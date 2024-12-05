@@ -1,5 +1,8 @@
 <app-modal-alert (onClose)="backToList()" [isAddToCart]="isAddToCart()">
   @if(isAddToCart()){
-  <app-pizza-add-to-cart-confirmation (onAddToCart)="addToCart($event)" />
+  <app-pizza-add-to-cart-confirmation
+    (onAddToCart)="addToCart($event)"
+    (click)="$event.stopPropagation()"
+  />
   }
 </app-modal-alert>

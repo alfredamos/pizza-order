@@ -4,9 +4,9 @@
       <input
         type="search"
         name="searchTerm"
-        ngModel
-        [(value)]="searchTerm"
+        [(ngModel)]="searchTerm"
         class="border-solid border-2 border-gray-300 focus:border-solid focus:border-indigo-600 focus:outline-none text-black w-full rounded-lg p-3"
+        #search
       />
       <button
         type="submit"
@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (pizza of enteredPizzas(); track pizza.id){
+      @for (pizza of filteredPizzas(); track pizza.id){
 
       <tr class="text-base text-black">
         <td>

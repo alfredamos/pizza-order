@@ -21,8 +21,8 @@ export class LogoutComponent implements OnInit {
   }
 
   logoutSubmit() {
-    this.cartItemStoreService.removeCartItemsLocal();
-    this.pizzaStoreService.removeLocalPizzas();
+    this.cartItemStoreService.removeLocalStorageCartItems();
+    this.pizzaStoreService.removeLocalStoragePizzas();
     this.authStoreService.logout();
 
     this.router.navigate(['/']);
