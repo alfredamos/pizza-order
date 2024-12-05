@@ -1,7 +1,7 @@
 <app-modal-alert [isAddToCart]="isDelete()">
-  <app-pizza-delete-card
+  <app-user-delete-card
     (onBackToList)="backToList()"
-    (onDelete)="deletePizza($event)"
-    [pizza]="pizza()"
+    (onDelete)="deleteUser($event)"
+    [user]="user()"
   />
 </app-modal-alert>

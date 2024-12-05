@@ -8,7 +8,11 @@ import { PizzaViewDialogComponent } from '../pizza-view-dialog/pizza-view-dialog
 
 @Component({
   selector: 'app-delete-view-edit-buttons-pizza-table',
-  imports: [PizzaDeleteDialogComponent, PizzaEditDialogComponent, PizzaViewDialogComponent],
+  imports: [
+    PizzaDeleteDialogComponent,
+    PizzaEditDialogComponent,
+    PizzaViewDialogComponent,
+  ],
   templateUrl: './delete-view-edit-buttons-pizza-table.component.html',
   styleUrl: './delete-view-edit-buttons-pizza-table.component.css',
 })
@@ -19,47 +23,51 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   isDeletePizza = signal(false);
   isEditPizza = signal(false);
   isViewPizza = signal(false);
-  refresh = signal(false)
+  refresh = signal(false);
 
   pizzaDbService = inject(PizzaDbService);
   router = inject(Router);
 
-  pizzaDeleteConfirmation(){
-    this.isDeletePizza.set(!this.isDeletePizza())
-  };
+  pizzaDeleteConfirmation() {
+    this.isDeletePizza.update((oldIsDeletePizza) => !oldIsDeletePizza);
+  }
 
-  pizzaEditConfirmation(){
-    this.isEditPizza.set(!this.isEditPizza())
-  };
+  pizzaEditConfirmation() {
+    this.isEditPizza.update((oldIsEditPizza) => !oldIsEditPizza);
+  }
 
-  async editPizza(pizza: Pizza){
+  pizzaViewConfirmation() {
+    console.log('In view, isView : ', this.isViewPizza());
+    this.isViewPizza.update((oldIsViewPizza) => !oldIsViewPizza);
+  }
+
+  async editPizza(pizza: Pizza) {
     console.log('pizza info edited : ', pizza);
 
-    await this.pizzaDbService.editResource(this.id(), pizza)
+    await this.pizzaDbService.editResource(this.id(), pizza);
 
-    this.isEditPizza.set(!this.isEditPizza());
+    this.isEditPizza.update((oldIsEditPizza) => !oldIsEditPizza);
 
-    this.refresh.set(!this.refresh);
-  };
+    this.refresh.update((oldRefresh) => !oldRefresh);
+  }
 
-  backToList(){
+  backToList() {
     console.log('At point 1', this.isDeletePizza());
-    if(this.isDeletePizza()) this.isDeletePizza.set(!this.isDeletePizza());
-    if(this.isEditPizza()) this.isEditPizza.set(!this.isEditPizza());
-    if (this.isViewPizza()) this.isViewPizza.set(!this.isViewPizza);
-  };
+    if (this.isDeletePizza())
+      this.isDeletePizza.update((oldIsDeletePizza) => !oldIsDeletePizza);
+    if (this.isEditPizza())
+      this.isEditPizza.update((oldIsEditPizza) => !oldIsEditPizza);
+    if (this.isViewPizza())
+      this.isViewPizza.update((oldIsViewPizza) => !oldIsViewPizza);
+  }
 
-  pizzaViewConfirmation(){
-    this.isViewPizza.set(!this.isViewPizza);
-  };
-
-  async deletePizza(id: string){
+  async deletePizza(id: string) {
     console.log('pizza info deleted : ', id);
 
     await this.pizzaDbService.deleteResource(id);
 
-    this.isDeletePizza.set(!this.isDeletePizza());
+    this.isDeletePizza.update((oldIsDeletePizza) => !oldIsDeletePizza);
 
-     this.refresh.set(!this.refresh);
-  };
+    this.refresh.update((oldRefresh) => !oldRefresh);
+  }
 }

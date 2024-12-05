@@ -5,7 +5,7 @@
         ><ng-icon
           name="heroHome"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
       /></a>
     </li>
     @if(isLoggedIn()){
@@ -14,7 +14,7 @@
         <ng-icon
           name="heroPencilSquare"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
       /></a>
     </li>
     <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
@@ -22,7 +22,7 @@
         <ng-icon
           name="lucideUserPen"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
       /></a>
     </li>
     } @if(isAdmin()){
@@ -31,7 +31,7 @@
         <ng-icon
           name="heroCake"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
         />
       </a>
     </li>
@@ -40,7 +40,7 @@
         <ng-icon
           name="lucideUsers"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
       /></a>
     </li>
     }@if(isLoggedIn()){
@@ -49,7 +49,16 @@
         <ng-icon
           name="heroArrowRightStartOnRectangle,"
           size="40px"
-          class="text-rose-500 font-extrabold"
+          class="text-rose-900 font-extrabold"
+      /></a>
+    </li>
+    }@else if(!isLoggedIn()){
+    <li class="mb-8 mt-96" style="margin-left: 20px; margin-bottom: 60px">
+      <a routerLink="/login">
+        <ng-icon
+          name="lucideLockOpen,"
+          size="40px"
+          class="text-rose-900 font-extrabold"
       /></a>
     </li>
     }

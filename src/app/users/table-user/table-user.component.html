@@ -1,1 +1,65 @@
-<p>table-user works!</p>
+<div class="overflow-x-auto bg-white m-6 shadow-inner rounded mx-4 p-3">
+  <form (ngSubmit)="submitSearch($event)">
+    <div class="flex justify-between items-center mb-5 mt-5 w-3/4 mx-auto">
+      <input
+        type="search"
+        name="searchTerm"
+        ngModel
+        [(value)]="searchTerm"
+        class="border-solid border-2 border-gray-300 focus:border-solid focus:border-indigo-600 focus:outline-none text-black w-full rounded-lg p-3"
+      />
+      <button
+        type="submit"
+        class="bg-blue-900 hover:bg-rose-700 text-blue-200 text-lg font-bold py-3 px-8 rounded-lg mx-4 uppercase"
+      >
+        Search
+      </button>
+    </div>
+  </form>
+  <table class="table table-zebra border-1 border-gray-200 p-3">
+    <thead class="text-gray-200 text-xl bg-gray-500">
+      <tr class="">
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of enteredUsers(); track user.id){
+
+      <tr class="text-base text-black">
+        <td>
+          <img
+            [src]="user.image"
+            [alt]="user.name"
+            width="80"
+            height="80"
+            class="object-cover w-20 h-20"
+          />
+        </td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.gender }}</td>
+        <td>
+          <app-delete-view-buttons-user-table [user]="user" [id]="user.id" />
+        </td>
+      </tr>
+
+      }
+    </tbody>
+  </table>
+  <div class="flex items-center justify-end my-8">
+    <a
+      routerLink="/users/new"
+      class="bg-indigo-500 text-indigo-100 px-12 py-4 rounded-lg uppercase font-bold"
+    >
+      Add User
+    </a>
+  </div>
+</div>

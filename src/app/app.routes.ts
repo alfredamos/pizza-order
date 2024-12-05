@@ -17,6 +17,7 @@ import { EditPizzaComponent } from './pizzas/edit-pizza/edit-pizza.component';
 import { DeletePizzaComponent } from './pizzas/delete-pizza/delete-pizza.component';
 import { NewPizzaComponent } from './pizzas/new-pizza/new-pizza.component';
 import { DetailPizzaComponent } from './pizzas/detail-pizza/detail-pizza.component';
+import { TableUserComponent } from './users/table-user/table-user.component';
 
 export const routes: Routes = [
   {
@@ -73,7 +74,7 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: DetailPizzaComponent,
+    component: TableUserComponent,
     canActivate: [protectedGuard, adminGuard],
   },
 ];

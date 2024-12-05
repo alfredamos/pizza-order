@@ -10,6 +10,7 @@ import { AuthStoreService } from './authStore.service';
 export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   statePizza = this.pizzaState.asReadonly();
+  isAdded = signal(false);
 
   pizzas = computed(() => this.statePizza()?.pizzas);
 
@@ -18,10 +19,14 @@ export class PizzaStoreService {
   constructor() {
     console.log('In pizzaStore-constructor!!!');
     const pizzas = this.getLocalPizzas();
-    if (!!pizzas) {
+    console.log('At point 1, pizzas : ', pizzas);
+    if (pizzas?.length > 0 && !this.isAdded()) {
+      console.log('At point 2, pizzas : ', pizzas);
       this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
-    } else {
+    } else if (this.isAdded()) {
+      console.log('At point 3, pizzas');
       this.getPizzas().then((data) => console.log(data));
+      this.isAdded.set(false);
     }
   }
 
@@ -31,6 +36,10 @@ export class PizzaStoreService {
       ...pizzaState,
       pizzas: newPizzas,
     }));
+    this.pizzaDbService.createResource(pizza);
+
+    console.log('pizza added!!!');
+    this.isAdded.set(true);
   }
 
   deletePizza(pizzaId: string) {
@@ -57,6 +66,8 @@ export class PizzaStoreService {
     const pizzas = await this.pizzaDbService.getAllResources();
     this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
     this.setLocalPizzas(pizzas);
+    console.log('At get-pizzas, pizzas : ', pizzas);
+    return pizzas;
   }
 
   setLocalPizzas(pizzas: Pizza[]) {

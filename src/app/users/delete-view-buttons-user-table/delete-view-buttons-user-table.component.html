@@ -1,0 +1,32 @@
+@if(!user()){ }@else if(isDeleteUser()){
+<app-user-delete-dialog
+  [isDelete]="isDeleteUser()"
+  [user]="user()"
+  (onBackToList)="backToList()"
+  (onDelete)="deleteUser($event)"
+/>
+}@else if(isViewUser()){
+<app-user-view-dialog
+  [isView]="isViewUser()"
+  [user]="user()"
+  (onBackToList)="backToList()"
+/>
+}
+
+<div class="flex items-center w-full mt-2">
+  <button
+    type="button"
+    class="py-2 px-4 border-2 border-violet-900 hover:bg-violet-900 hover:text-indigo-100 text-violet-900 font-bold text-base rounded-lg mr-2"
+    (click)="userViewConfirmation()"
+  >
+    view
+  </button>
+
+  <button
+    type="button"
+    class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-rose-100 text-rose-900 font-bold text-base rounded-lg mr-2"
+    (click)="userDeleteConfirmation()"
+  >
+    Delete
+  </button>
+</div>

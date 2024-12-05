@@ -13,6 +13,7 @@ export class PizzaDeleteCardComponent {
   onDelete = output<string>();
 
   backToList() {
+    console.log("Back to list!!!")
     this.onBackToList.emit();
   }
 

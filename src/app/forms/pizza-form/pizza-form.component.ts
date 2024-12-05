@@ -41,7 +41,7 @@ export class PizzaFormComponent implements OnInit {
     this.onBackToList.emit();
   }
 
-  editPizza() {
+  SubmitPizza() {
     this.onEdit.emit(this.pizzaForm.value as Pizza);
   }
 }

@@ -4,23 +4,23 @@
   </h2>
   <p class="flex justify-between items-center py-2 mt-2">
     <span class="font-light">Name</span>
-    <span class="font-semibold">{{ pizza().name }}</span>
+    <span class="font-semibold">{{ user().name }}</span>
   </p>
   <p class="flex justify-between items-center py-2">
-    <span class="font-light">Price </span>
-    <span class="font-semibold">${{ pizza().price }}</span>
+    <span class="font-light">Email </span>
+    <span class="font-semibold">${{ user().email }}</span>
   </p>
   <p class="flex justify-between items-center py-2">
-    <span class="font-light">Quantity </span>
-    <span class="font-semibold">{{ pizza().quantity }}</span>
+    <span class="font-light">Phone </span>
+    <span class="font-semibold">{{ user().phone }}</span>
   </p>
   <p class="flex justify-between items-center py-2">
-    <span class="block mr-6 text-wrap font-light">Toppings </span>
-    <span class="font-semibold w-full text-end">{{ pizza().topping }}</span>
+    <span class="block mr-6 text-wrap font-light">Address </span>
+    <span class="font-semibold w-full text-end">{{ user().address }}</span>
   </p>
   <p class="flex justify-between items-center py-2">
-    <span class="font-light">Description</span>
-    <span class="font-semibold text-wrap">{{ pizza().description }}</span>
+    <span class="font-light">Gender</span>
+    <span class="font-semibold text-wrap">{{ user().gender }}</span>
   </p>
   <h4 class="mb-4 mt-4 border-b-2 border-t-2 font-semibold py-4 text-xl">
     <span> Do you really want to delete this user? </span>
@@ -36,7 +36,7 @@
     <button
       type="button"
       class="bg-red-500 hover:bg-red-700 text-slate-100 w-full rounded-lg font-medium uppercase py-4"
-      (click)="deletePizza(pizza().id)"
+      (click)="deleteUser(user().id)"
     >
       Delete
     </button>

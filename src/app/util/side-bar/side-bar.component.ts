@@ -9,7 +9,7 @@ import {
   heroArrowRightStartOnRectangle,
   /*  heroPencil,*/
 } from '@ng-icons/heroicons/outline';
-import { lucideUsers, lucideUserPen } from '@ng-icons/lucide';
+import { lucideLockOpen, lucideUsers, lucideUserPen } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-side-bar',
@@ -22,6 +22,7 @@ import { lucideUsers, lucideUserPen } from '@ng-icons/lucide';
       heroCake,
       heroHome,
       heroArrowRightStartOnRectangle,
+      lucideLockOpen,
       lucideUsers,
       lucideUserPen,
     }),
