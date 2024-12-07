@@ -5,7 +5,7 @@ import { CartItem } from '../../../models/cartItems/cartItem.model';
 import { PizzaStoreService } from '../../services/pizzaStore.service';
 import { Router, RouterLink } from '@angular/router';
 import { CartItemStoreService } from '../../services/cartItemStore.service';
-import { cartUtilService } from '../../services/cartUtil.service';
+import { CartUtilService } from '../../services/cartUtil.service';
 import { PizzaDbService } from '../../services/pizzaDb.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ListPizzaComponent implements OnInit {
   pizzaStoreService = inject(PizzaStoreService);
 
   router = inject(Router);
-  cartUtilService = inject(cartUtilService);
+  cartUtilService = inject(CartUtilService);
 
   pizzas = this.pizzaStoreService.pizzas;
 
@@ -40,6 +40,7 @@ export class ListPizzaComponent implements OnInit {
   addToCart(pizza: Pizza) {
     console.log('Add to cart');
     this.cartItemStoreService.changeIsAddToCart(true);
+    //this.cartUtilService.
     this.cartUtilService.makeCartItems(pizza, this.cartItems());
   }
 

@@ -7,13 +7,13 @@ import { CartItemStoreService } from './cartItemStore.service';
 @Injectable({
   providedIn: 'root',
 })
-export class cartUtilService {
+export class CartUtilService {
   cartItemStoreService = inject(CartItemStoreService);
 
   makeCartItems(pizza: Pizza, carts: CartItem[]) {
     const cart = this.findCartItem(pizza, carts)!;
 
-    let cartItem: CartItem;
+    let cartItem: CartItem | undefined;
     let allCartItems: CartItem[] = [];
     let cartItems: CartItem[] = [...carts];
 
@@ -49,5 +49,42 @@ export class cartUtilService {
 
   findCartItem(pizza: Pizza, carts: CartItem[]) {
     return carts?.find((cartItem) => cartItem?.pizzaId === pizza.id);
+  }
+
+  backToPizza() {
+    this.cartItemStoreService.changeIsAddToCart(false);
+  }
+
+  quantityIncrease(cart: CartItem) {
+    console.log('Quantity is increased');
+    const newCart = {
+      ...cart,
+      quantity: cart.quantity >= 19 ? 20 : cart.quantity + 1,
+    };
+
+    this.cartItemStoreService.editCartItem(newCart);
+  }
+
+  quantityDecrease(cart: CartItem) {
+    console.log('Quantity is decreased');
+
+    const newCart = {
+      ...cart,
+      quantity: cart.quantity <= 1 ? 1 : cart.quantity - 1,
+    };
+    if (cart?.quantity === 0) this.cartItemStoreService.deleteCartItem(cart.id);
+
+    if (cart?.quantity > 0) this.cartItemStoreService.editCartItem(newCart);
+  }
+
+  subTotal(cart: CartItem) {
+    return cart.quantity * cart.price;
+  }
+
+  total(carts: CartItem[]) {
+    return carts?.reduce(
+      (sum, current) => sum + current.price * current.quantity,
+      0
+    );
   }
 }

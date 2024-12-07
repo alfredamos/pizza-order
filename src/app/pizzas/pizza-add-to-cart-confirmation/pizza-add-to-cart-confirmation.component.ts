@@ -3,6 +3,7 @@ import { CartItem } from '../../../models/cartItems/cartItem.model';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlus, heroMinus } from '@ng-icons/heroicons/outline';
 import { CartItemStoreService } from '../../services/cartItemStore.service';
+import { CartUtilService } from '../../services/cartUtil.service';
 
 @Component({
   selector: 'app-pizza-add-to-cart-confirmation',
@@ -13,8 +14,10 @@ import { CartItemStoreService } from '../../services/cartItemStore.service';
 })
 export class PizzaAddToCartConfirmationComponent {
   cartItemStoreService = inject(CartItemStoreService);
+  cartUtilService = inject(CartUtilService);
 
   carts = this.cartItemStoreService?.cartItems;
+
   onAddToCart = output<CartItem[]>();
 
   addToCart(carts: CartItem[]) {
@@ -23,39 +26,22 @@ export class PizzaAddToCartConfirmationComponent {
   }
 
   backToPizza() {
-    this.cartItemStoreService.changeIsAddToCart(false);
+    this.cartUtilService.backToPizza();
   }
 
   quantityIncrease(cart: CartItem) {
-    console.log('Quantity is increased');
-    const newCart = {
-      ...cart,
-      quantity: cart.quantity >= 19 ? 20 : cart.quantity + 1,
-    };
-
-    this.cartItemStoreService.editCartItem(newCart);
+    this.cartUtilService.quantityIncrease(cart);
   }
 
   quantityDecrease(cart: CartItem) {
-    console.log('Quantity is decreased');
-
-    const newCart = {
-      ...cart,
-      quantity: cart.quantity <= 1 ? 1 : cart.quantity - 1,
-    };
-    if (cart?.quantity === 0) this.cartItemStoreService.deleteCartItem(cart.id);
-
-    if (cart?.quantity > 0) this.cartItemStoreService.editCartItem(newCart);
+    this.cartUtilService.quantityDecrease(cart);
   }
 
   subTotal(cart: CartItem) {
-    return cart.quantity * cart.price;
+    return this.cartUtilService.subTotal(cart);
   }
 
   total() {
-    return this.carts()?.reduce(
-      (sum, current) => sum + current.price * current.quantity,
-      0
-    );
+    return this.cartUtilService.total(this.carts());
   }
 }
