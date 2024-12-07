@@ -21,6 +21,7 @@ export class EditProfileFormComponent {
     email: ['', [Validators.required]],
     phone: ['', [Validators.required]],
     address: ['', [Validators.required]],
+    image: ['', [Validators.required]],
     password: ['', [Validators.required]],
     gender: [''],
   });

@@ -38,4 +38,22 @@ export class UserStoreService {
       users: newUsers,
     }));
   }
+
+  updateUserState(users: UserPayload[]) {
+    this.userState.update((oldUserState) => ({ ...oldUserState, users }));
+    this.removeLocalStorageUsers();
+    this.setLocalStorageUsers(users);
+  }
+
+  setLocalStorageUsers(users: UserPayload[]) {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  private getLocalStorageUsers() {
+    return JSON.parse(localStorage.getItem('users')!) as UserPayload[];
+  }
+
+  removeLocalStorageUsers() {
+    localStorage.removeItem('users');
+  }
 }

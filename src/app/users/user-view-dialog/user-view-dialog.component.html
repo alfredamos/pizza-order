@@ -1,3 +1,7 @@
 <app-modal-alert [isAddToCart]="isView()" (onClose)="backToList()">
-  <app-user-view-card [user]="user()" (onCancel)="backToList()" />
+  <app-user-view-card
+    [user]="user()"
+    (onCancel)="backToList()"
+    (click)="$event.stopPropagation()"
+  />
 </app-modal-alert>

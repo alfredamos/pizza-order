@@ -9,13 +9,11 @@ export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   statePizza = this.pizzaState.asReadonly();
 
+  localStoragePizza = computed(() => this.getLocalStoragePizzas());
+
   pizzas = computed(() => {
-    const localStoragePizzas = this.getLocalStoragePizzas();
-    console.log('local-pizzas : ', localStoragePizzas);
     return this.statePizza()?.pizzas ?? this.localStoragePizza;
   });
-
-  localStoragePizza = computed(() => this.getLocalStoragePizzas());
 
   addPizza(pizza: Pizza) {
     const newPizzas = [...this.pizzaState()?.pizzas, pizza];

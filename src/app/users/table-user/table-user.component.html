@@ -4,8 +4,7 @@
       <input
         type="search"
         name="searchTerm"
-        ngModel
-        [(value)]="searchTerm"
+        [(ngModel)]="searchTerm"
         class="border-solid border-2 border-gray-300 focus:border-solid focus:border-indigo-600 focus:outline-none text-black w-full rounded-lg p-3"
       />
       <button
@@ -29,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (user of enteredUsers(); track user.id){
+      @for (user of filteredUsers(); track user.id){
 
       <tr class="text-base text-black">
         <td>
@@ -54,12 +53,4 @@
       }
     </tbody>
   </table>
-  <div class="flex items-center justify-end my-8">
-    <a
-      routerLink="/users/new"
-      class="bg-indigo-500 text-indigo-100 px-12 py-4 rounded-lg uppercase font-bold"
-    >
-      Add User
-    </a>
-  </div>
 </div>

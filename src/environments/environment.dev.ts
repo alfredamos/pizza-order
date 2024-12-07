@@ -1,0 +1,5 @@
+export const environment = {
+  production: false,
+  apiUrl: 'localhost:5000',
+  stripe_publishable_key: '',
+};

@@ -2,6 +2,7 @@
   <app-user-delete-card
     (onBackToList)="backToList()"
     (onDelete)="deleteUser($event)"
+    (click)="$event.stopPropagation()"
     [user]="user()"
   />
 </app-modal-alert>

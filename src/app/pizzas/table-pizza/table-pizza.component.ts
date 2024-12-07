@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PizzaStoreService } from '../../services/pizzaStore.service';
@@ -35,6 +28,7 @@ export class TablePizzaComponent implements OnInit {
   async loadPizza() {
     const pizzas = await this.pizzaDbService.getAllResources();
     this.pizzaStoreService.updatePizzaState(pizzas);
+    this.filteredPizzas.set(pizzas);
   }
 
   submitSearch(event: Event) {

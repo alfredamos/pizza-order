@@ -36,6 +36,7 @@ export class cartUtilService {
         quantity: 1,
         pizzaId: pizza.id,
         orderId: '',
+        image: pizza.image,
       };
 
       this.cartItemStoreService.addCartItem(cartItem);

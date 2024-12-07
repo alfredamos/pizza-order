@@ -1,30 +1,46 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { UserStoreService } from '../../services/userStore.service';
 import { DeleteViewButtonsUserTableComponent } from '../delete-view-buttons-user-table/delete-view-buttons-user-table.component';
+import { UserDbService } from '../../services/user.service';
+import { UserPayload } from '../../../models/auth/userPayload.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table-user',
-  imports: [DeleteViewButtonsUserTableComponent],
+  imports: [FormsModule, DeleteViewButtonsUserTableComponent],
   templateUrl: './table-user.component.html',
   styleUrl: './table-user.component.css',
 })
 export class TableUserComponent {
   searchTerm = '';
 
+  userDbService = inject(UserDbService);
   userStoreService = inject(UserStoreService);
 
-  enteredUsers = this.userStoreService?.users;
+  filteredUsers = signal<UserPayload[]>([]);
+  users = this.userStoreService.users;
 
-  userEffect = effect(() => console.log('table-user : ', this.enteredUsers()));
+  ngOnInit(): void {
+    this.loadUser();
+  }
+
+  async loadUser() {
+    const users = await this.userDbService.getAllResources();
+    console.log('In table-user, user : ', users);
+    this.userStoreService.updateUserState(users);
+    this.filteredUsers.set(users);
+  }
 
   submitSearch(event: Event) {
     event.preventDefault();
-    this.enteredUsers()?.filter(
+    const filteredUsers = this.users()?.filter(
       (user) =>
         user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.phone.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.address.toLowerCase().includes(this.searchTerm.toLowerCase())
+        user.address.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.phone.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    this.filteredUsers.set(filteredUsers);
   }
 }
