@@ -1,1 +1,17 @@
-<p>payment works!</p>
+<main
+  class="max-w-3xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500"
+>
+  <div class="mb-10">
+    <h1 class="text-4xl font-extrabold mb-2">Please pay for your order!</h1>
+    <h2 class="text-2xl">
+      Your total order is : <span>${{ totalPrice() }}</span>
+    </h2>
+    <button
+      class="text-white w-full p-5 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
+      (click)="initiateStripe()"
+      type="button"
+    >
+      pay
+    </button>
+  </div>
+</main>

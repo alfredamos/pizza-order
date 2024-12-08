@@ -18,6 +18,7 @@ import { DeletePizzaComponent } from './pizzas/delete-pizza/delete-pizza.compone
 import { NewPizzaComponent } from './pizzas/new-pizza/new-pizza.component';
 import { DetailPizzaComponent } from './pizzas/detail-pizza/detail-pizza.component';
 import { TableUserComponent } from './users/table-user/table-user.component';
+import { PaymentComponent } from './orders/payment/payment.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,11 @@ export const routes: Routes = [
   {
     path: 'orders/checkout',
     component: CheckoutComponent,
+    canActivate: [protectedGuard],
+  },
+  {
+    path: 'orders/payment',
+    component: PaymentComponent,
     canActivate: [protectedGuard],
   },
   { path: '', component: ListPizzaComponent },

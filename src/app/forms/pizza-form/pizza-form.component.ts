@@ -42,6 +42,8 @@ export class PizzaFormComponent implements OnInit {
   }
 
   SubmitPizza() {
-    this.onEdit.emit(this.pizzaForm.value as Pizza);
+    const newPizza = this.pizzaForm.value as Pizza;
+    console.log({ newPizza });
+    this.onEdit.emit(newPizza);
   }
 }

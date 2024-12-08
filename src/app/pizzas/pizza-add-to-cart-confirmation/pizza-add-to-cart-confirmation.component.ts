@@ -42,6 +42,6 @@ export class PizzaAddToCartConfirmationComponent {
   }
 
   total() {
-    return this.cartUtilService.total(this.carts());
+    return this.cartUtilService.totalPrice(this.carts());
   }
 }

@@ -24,6 +24,7 @@ export class StripeService {
     );
     const response = await firstValueFrom(response$);
 
+    console.log('In stripe-service, response : ', response);
     const session = await response.json();
 
     const result = await stripe?.redirectToCheckout({
@@ -37,7 +38,7 @@ export class StripeService {
     return session;
   }
 
-  async redirectToCheckout(data: any): Promise<Stripe> {
+  async redirectToCheckout(orderPayload: OrderPayload): Promise<Stripe> {
     const stripe = await this.stripePromise;
 
     const response = await fetch(
@@ -47,7 +48,7 @@ export class StripeService {
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(orderPayload),
       }
     );
 

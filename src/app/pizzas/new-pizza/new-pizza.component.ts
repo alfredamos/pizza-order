@@ -39,7 +39,11 @@ export class NewPizzaComponent {
   async submitPizza(pizza: Pizza) {
     pizza.userId = this.userId;
     console.log({ inputPizza: pizza });
-    const newPizza = await this.pizzaStoreService.addPizza(pizza);
+    //----> Store the new pizza in the database.
+    const newPizza = await this.pizzaDbService.createResource(pizza);
+
+    //----> Store the new pizza in the client pizza-store.
+    this.pizzaStoreService.addPizza(newPizza);
     console.log({ newPizza });
 
     this.router.navigateByUrl('/');

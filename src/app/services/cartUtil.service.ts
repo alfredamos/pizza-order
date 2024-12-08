@@ -81,10 +81,14 @@ export class CartUtilService {
     return cart.quantity * cart.price;
   }
 
-  total(carts: CartItem[]) {
+  totalPrice(carts: CartItem[]) {
     return carts?.reduce(
       (sum, current) => sum + current.price * current.quantity,
       0
     );
+  }
+
+  totalQuantity(carts: CartItem[]) {
+    return carts?.reduce((sum, current) => sum + current.quantity, 0);
   }
 }
