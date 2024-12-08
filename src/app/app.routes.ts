@@ -19,6 +19,7 @@ import { NewPizzaComponent } from './pizzas/new-pizza/new-pizza.component';
 import { DetailPizzaComponent } from './pizzas/detail-pizza/detail-pizza.component';
 import { TableUserComponent } from './users/table-user/table-user.component';
 import { PaymentComponent } from './orders/payment/payment.component';
+import { PaymentSuccessComponent } from './orders/payment-success/payment-success.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,16 @@ export const routes: Routes = [
   },
   {
     path: 'orders/payment',
+    component: PaymentComponent,
+    canActivate: [protectedGuard],
+  },
+  {
+    path: 'orders/payment-success',
+    component: PaymentSuccessComponent,
+    canActivate: [protectedGuard],
+  },
+  {
+    path: 'orders/payment-failure',
     component: PaymentComponent,
     canActivate: [protectedGuard],
   },
