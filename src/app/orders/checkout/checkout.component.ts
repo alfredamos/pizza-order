@@ -16,6 +16,7 @@ export class CheckoutComponent {
   carts = this.cartItemStoreService.cartItems;
 
   makePayment = () => {
+    this.cartItemStoreService.editAllCatItems(this.carts());
     this.router.navigateByUrl('/orders/payment');
   };
 

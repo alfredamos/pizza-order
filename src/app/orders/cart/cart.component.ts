@@ -57,6 +57,8 @@ export class CartComponent {
 
       return cart;
     }) as CartItem[];
+
+    this.cartItemStoreService.editAllCatItems(newCartItems);
   };
 
   makeCheckout = () => {

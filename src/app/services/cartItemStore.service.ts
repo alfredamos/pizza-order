@@ -10,7 +10,16 @@ export class CartItemStoreService {
   stateCartItem = this.cartItemState.asReadonly();
 
   cartItems = computed(() => this.stateCartItem()?.cartItems);
+
   isAddToCart = computed(() => this.stateCartItem()?.isAddToCart);
+
+  constructor() {
+    const carts = this.getLocalStorageCartItems();
+
+    if (carts?.length) {
+      this.editAllCatItems(carts);
+    }
+  }
 
   addCartItem(cart: CartItem) {
     const newCartItems = [...this.cartItemState()?.cartItems, cart];
@@ -18,6 +27,8 @@ export class CartItemStoreService {
       ...cartState,
       cartItems: newCartItems,
     }));
+
+    this.setLocalStorageCartItems(newCartItems);
   }
 
   deleteCartItem(cartId: string) {
@@ -28,6 +39,8 @@ export class CartItemStoreService {
       ...cartState,
       cartItems: newCartItems,
     }));
+
+    this.setLocalStorageCartItems(newCartItems);
   }
 
   editCartItem(cart: CartItem) {
@@ -38,6 +51,8 @@ export class CartItemStoreService {
       ...cartState,
       cartItems: newCartItems,
     }));
+
+    this.setLocalStorageCartItems(newCartItems);
   }
 
   editAllCatItems(carts: CartItem[]) {
@@ -45,6 +60,8 @@ export class CartItemStoreService {
       ...cartState,
       cartItems: carts,
     }));
+
+    this.setLocalStorageCartItems(carts);
   }
 
   changeIsAddToCart(isAddCart: boolean) {

@@ -1,6 +1,7 @@
-@if(carts().length < 1){
+@if(!carts().length){
 <div
   class="bg-white p-12 shadow-xl rounded-lg max-w-lg flex justify-center items-center font-bold mx-auto mt-80"
+  (click)="$event.stopPropagation()"
 >
   <p class="flex flex-col gap-10">
     <span class="text-4xl">No order to display</span>

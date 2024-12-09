@@ -1,10 +1,30 @@
 <div
-  class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2"
+  class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2 relative flex justify-between items-center"
 >
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl" [routerLink]="['/']">Pizza-Order</a>
+  <div
+    class="flex items-center mt-4"
+    [ngClass]="
+      isLoggedIn() || totalQuantity() === 0
+        ? 'absolute top-0 right-0'
+        : 'hidden'
+    "
+  >
+    <a
+      class="btn btn-ghost text-xl flex justify-center item-center"
+      routerLink="/orders/cart"
+      >Pizza-Order
+      <span
+        [class]="
+          totalQuantity()
+            ? 'inline-block bg-rose-900 text-rose-100 rounded-full py-1 px-3'
+            : 'undefined'
+        "
+      >
+        {{ totalQuantity() ? totalQuantity() : undefined }}
+      </span></a
+    >
   </div>
-  <div class="flex-none gap-2">
+  <div class="flex gap-4">
     <div class="form-control">
       <input
         type="text"
@@ -16,6 +36,7 @@
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full object-cover">
           <img
+            class=""
             alt="Tailwind CSS Navbar component"
             [src]="
               !!currentUser()
