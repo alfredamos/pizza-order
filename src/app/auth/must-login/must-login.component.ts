@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-must-login',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './must-login.component.html',
-  styleUrl: './must-login.component.css'
+  styleUrl: './must-login.component.css',
 })
-export class MustLoginComponent {
-
-}
+export class MustLoginComponent {}

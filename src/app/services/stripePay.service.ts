@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { OrderPayload } from '../../models/auth/orderPayload.model';
+import { Session } from '../../models/stripe/session.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,14 +19,13 @@ export class StripeService {
   async checkout(order: OrderPayload) {
     const stripe = await this.stripePromise;
 
-    const response$ = this.http.post<Response>(
+    const response$ = this.http.post<Session>(
       `${environment.apiUrl}/stripe-payment/checkout`,
       order
     );
-    const response = await firstValueFrom(response$);
+    const session = await firstValueFrom(response$);
 
-    console.log('In stripe-service, response : ', response);
-    const session = await response.json();
+    console.log('In stripe-service, response : ', session);
 
     const result = await stripe?.redirectToCheckout({
       sessionId: session.id,
