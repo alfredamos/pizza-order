@@ -1,6 +1,6 @@
 @if(orders().length === 0){
 <div
-  class="flex justify-center items-center mx-auto my-auto bg-white text-black max-w-lg px-12 py-40  rounded-lg shadow-lg mt-24"
+  class="flex justify-center items-center mx-auto my-auto bg-white text-black max-w-lg px-12 py-40 rounded-lg shadow-lg mt-24"
 >
   <h1 class="text-3xl">There are no orders to display!</h1>
 </div>
@@ -36,7 +36,7 @@
 
         <td>{{ order.totalPrice }}</td>
         <td>{{ order.totalQuantity }}</td>
-        <td>{{ order.orderDate }}</td>
+        <td>{{ order.orderDate | date : "dd/MM/yyyy" }}</td>
         <td>{{ order.status }}</td>
         <td>{{ order.user?.name }}</td>
         <td>

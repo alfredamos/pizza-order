@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { OrderDbService } from '../../services/orderDb.service';
 import { OrderStoreService } from '../../services/orderStore.service';
 import { Status } from '../../../models/auth/status.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pizza-orders-shipped',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './pizza-orders-shipped.component.html',
   styleUrl: './pizza-orders-shipped.component.css',
 })

@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { OrderDbService } from '../../services/orderDb.service';
 import { OrderStoreService } from '../../services/orderStore.service';
 import { AuthStoreService } from '../../services/authStore.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-orders-by-user-id',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './orders-by-user-id.component.html',
   styleUrl: './orders-by-user-id.component.css',
 })

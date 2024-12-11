@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { OrderDbService } from '../../services/orderDb.service';
 import { OrderStoreService } from '../../services/orderStore.service';
 import { Status } from '../../../models/auth/status.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pizza-orders-pending',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './pizza-orders-pending.component.html',
 })
 export class PizzaOrdersPendingComponent {

@@ -4,10 +4,11 @@ import { OrderStoreService } from '../../services/orderStore.service';
 import { OrderPayload } from '../../../models/orders/orderPayload.model';
 import { OrderModel } from '../../../models/orders/orderModel.model';
 import { Status } from '../../../models/auth/status.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pizza-orders-delivered',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './pizza-orders-delivered.component.html',
   styleUrl: './pizza-orders-delivered.component.css',
 })
