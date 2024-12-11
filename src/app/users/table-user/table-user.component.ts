@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { UserStoreService } from '../../services/userStore.service';
 import { DeleteViewButtonsUserTableComponent } from '../delete-view-buttons-user-table/delete-view-buttons-user-table.component';
-import { UserDbService } from '../../services/user.service';
-import { UserPayload } from '../../../models/auth/userPayload.model';
+import { UserDbService } from '../../services/userDb.service';
+import { UserPayload } from '../../../models/users/userPayload.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -27,7 +27,7 @@ export class TableUserComponent {
   async loadUser() {
     const users = await this.userDbService.getAllResources();
     console.log('In table-user, user : ', users);
-    this.userStoreService.updateUserState(users);
+    this.userStoreService.editAllUsers(users);
     this.filteredUsers.set(users);
   }
 

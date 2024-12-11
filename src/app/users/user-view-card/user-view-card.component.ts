@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { UserPayload } from '../../../models/auth/userPayload.model';
+import { UserPayload } from '../../../models/users/userPayload.model';
 
 @Component({
   selector: 'app-user-view-card',

@@ -19,6 +19,7 @@ export class SignupFormComponent {
     name: ['', [Validators.required]],
     email: ['', [Validators.required]],
     phone: ['', [Validators.required]],
+    image: [''],
     address: ['', [Validators.required]],
     password: ['', [Validators.required]],
     confirmPassword: ['', [Validators.required]],

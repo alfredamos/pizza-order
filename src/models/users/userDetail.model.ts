@@ -1,4 +1,5 @@
-import { Gender, Role} from '@prisma/client';
+import { Gender } from "../gender.model";
+import { Role } from "../role.model";
 
 export class UserDetailModel {
   id: string = "";

@@ -1,7 +1,7 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDbService } from '../../services/user.service';
-import { UserPayload } from '../../../models/auth/userPayload.model';
+import { UserDbService } from '../../services/userDb.service';
+import { UserPayload } from '../../../models/users/userPayload.model';
 import { UserDeleteDialogComponent } from '../user-delete-dialog/user-delete-dialog.component';
 import { UserViewDialogComponent } from '../user-view-dialog/user-view-dialog.component';
 

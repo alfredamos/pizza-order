@@ -1,5 +1,5 @@
 import { signal, computed, Injectable } from '@angular/core';
-import { UserPayload } from '../../models/auth/userPayload.model';
+import { UserPayload } from '../../models/users/userPayload.model';
 import { UserState } from '../../models/users/userState.model';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class UserStoreService {
 
   editUser(userPayload: UserPayload) {
     const newUsers = this.userState()?.users?.map((user) =>
-      user.id === user.id ? userPayload : user
+      user.id === userPayload.id ? userPayload : user
     );
     this.userState.update((userState) => ({
       ...userState,
@@ -39,7 +39,7 @@ export class UserStoreService {
     }));
   }
 
-  updateUserState(users: UserPayload[]) {
+  editAllUsers(users: UserPayload[]) {
     this.userState.update((oldUserState) => ({ ...oldUserState, users }));
     this.removeLocalStorageUsers();
     this.setLocalStorageUsers(users);

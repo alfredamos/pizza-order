@@ -35,7 +35,7 @@ export class PizzaStoreService {
 
   editPizza(pizzaPayload: Pizza) {
     const newPizzas = this.pizzaState()?.pizzas?.map((pizza) =>
-      pizza.id === pizza.id ? pizzaPayload : pizza
+      pizza.id === pizzaPayload.id ? pizzaPayload : pizza
     );
     this.pizzaState.update((pizzaState) => ({
       ...pizzaState,
@@ -43,7 +43,7 @@ export class PizzaStoreService {
     }));
   }
 
-  updatePizzaState(pizzas: Pizza[]) {
+  editAllPizzas(pizzas: Pizza[]) {
     this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
     this.removeLocalStoragePizzas();
     this.setLocalStoragePizzas(pizzas);

@@ -3,7 +3,7 @@ import { Stripe } from '@stripe/stripe-js';
 import { environment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { OrderPayload } from '../../models/auth/orderPayload.model';
+import { OrderPayload } from '../../models/orders/orderPayload.model';
 import { Session } from '../../models/stripe/session.model';
 
 @Injectable({

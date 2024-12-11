@@ -1,6 +1,6 @@
 import { CartItem } from '../cartItems/cartItem.model';
-import { Status } from './status.model';
-import { UserResponseModel } from './userResponse.model';
+import { Status } from '../auth/status.model';
+import { UserResponseModel } from '../users/userResponse.model';
 
 export class OrderModel {
   id!: string;
@@ -9,6 +9,7 @@ export class OrderModel {
   cartItems: CartItem[] = [];
   isDelivered?: boolean;
   isShipped?: boolean;
+  isPending?: boolean;
   deliveryDate?: Date;
   shippingDate?: Date;
   orderDate!: Date;

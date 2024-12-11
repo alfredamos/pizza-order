@@ -1,0 +1,47 @@
+@if(orders().length === 0){
+<div
+  class="flex justify-center items-center mx-auto my-auto bg-white text-black max-w-lg px-12 py-40 rounded-lg shadow-lg mt-24"
+>
+  <h1 class="text-3xl">There are no orders to display!</h1>
+</div>
+}@else {
+<div class="overflow-x-auto bg-white m-6 shadow-inner rounded mx-4 p-3">
+  <table class="table table-zebra border-1 border-gray-200 p-3">
+    <thead class="text-gray-200 text-xl bg-gray-500">
+      <tr class="">
+        <th>Order No.</th>
+        <th>Items</th>
+        <th>Price</th>
+        <th>Quantities</th>
+        <th>Date Order</th>
+        <th>Status</th>
+        <th>Order By</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (order of orders(); track order.id){
+
+      <tr class="text-base text-black">
+        <td>{{ order.id }}</td>
+        <td>
+          @for(item of order?.cartItems; track item.id){
+          <ul>
+            <li>
+              <p>{{ item.name }}</p>
+            </li>
+          </ul>
+          }
+        </td>
+
+        <td>{{ order.totalPrice }}</td>
+        <td>{{ order.totalQuantity }}</td>
+        <td>{{ order.orderDate }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.user?.name }}</td>
+      </tr>
+
+      }
+    </tbody>
+  </table>
+</div>
+}

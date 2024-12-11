@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { UserPayload } from '../../../models/auth/userPayload.model';
+import { UserPayload } from '../../../models/users/userPayload.model';
 import { ModalAlertComponent } from '../../util/modal-alert/modal-alert.component';
 import { UserViewCardComponent } from '../user-view-card/user-view-card.component';
 

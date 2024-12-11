@@ -27,7 +27,7 @@ export class TablePizzaComponent implements OnInit {
 
   async loadPizza() {
     const pizzas = await this.pizzaDbService.getAllResources();
-    this.pizzaStoreService.updatePizzaState(pizzas);
+    this.pizzaStoreService.editAllPizzas(pizzas);
     this.filteredPizzas.set(pizzas);
   }
 

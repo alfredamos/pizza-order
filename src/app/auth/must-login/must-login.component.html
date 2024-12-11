@@ -1,14 +1,17 @@
 <div
   class="flex flex-col items-center bg-white border-2 text-black border-indigo-500 shadow-lg p-5 max-w-sm md:max-w-2xl mx-auto mt-64"
 >
-  <div class="flex flex-col">
-    <p class="font-semibold text-indigo-500 text-5xl">
-      You must login to view this page!
-    </p>
-  </div>
+  <p class="font-semibold text-indigo-500 text-5xl">
+    You must login to view this page!
+  </p>
 
-  <div class="flex gap-52 text-2xl">
-    <a class="text-indigo-500 inline-block" routerLink="/login"> Login </a>
-    <a class="text-blue-500 inline-block" routerLink="/signup"> Signup </a>
+  <div class="flex flex-row justify-between items-center text-2xl mt-4">
+    <span class="float-start"
+      ><a class="text-indigo-500" routerLink="/login"> Login </a></span
+    >
+
+    <span class="float-end"
+      ><a class="text-violet-500" routerLink="/signup"> Signup </a></span
+    >
   </div>
 </div>

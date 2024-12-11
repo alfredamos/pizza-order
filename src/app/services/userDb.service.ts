@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserPayload } from '../../models/auth/userPayload.model';
+import { UserPayload } from '../../models/users/userPayload.model';
 import { ApiClientService } from './apiClient.service';
 
 @Injectable({

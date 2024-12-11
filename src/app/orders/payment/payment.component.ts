@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CartItemStoreService } from '../../services/cartItemStore.service';
 import { CartUtilService } from '../../services/cartUtil.service';
 import { StripeService } from '../../services/stripePay.service';
-import { OrderPayload } from '../../../models/auth/orderPayload.model';
+import { OrderPayload } from '../../../models/orders/orderPayload.model';
 import { AuthStoreService } from '../../services/authStore.service';
 import { v4 as uuidv4 } from 'uuid';
 import { CartItem } from '../../../models/cartItems/cartItem.model';
@@ -32,6 +32,7 @@ export class PaymentComponent {
   initiateStripe() {
     const orderPayload = this.makeOrder();
     this.stripeService.checkout(orderPayload);
+    
   }
 
   subTotal(cart: CartItem) {

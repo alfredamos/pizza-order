@@ -1,4 +1,4 @@
-import { SignupModel } from './signup.model';
+import { SignupModel } from '../auth/signup.model';
 
 export class UserPayload extends SignupModel {
   id: string = '';
