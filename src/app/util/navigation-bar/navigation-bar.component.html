@@ -25,18 +25,13 @@
     >
   </div>
   <div class="flex gap-4">
-    <div class="form-control">
-      <input
-        type="text"
-        placeholder="Search"
-        class="input input-bordered w-24 md:w-auto"
-      />
-    </div>
+    <span class="font-semibold flex justify-center item-center text-xl mb-2">{{
+      currentUser().name
+    }}</span>
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full object-cover">
+        <div class="w-15 rounded-full object-cover">
           <img
-            class=""
             alt="Tailwind CSS Navbar component"
             [src]="
               !!currentUser()
