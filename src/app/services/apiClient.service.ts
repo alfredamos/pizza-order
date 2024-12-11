@@ -52,4 +52,6 @@ export class ApiClientService<T> {
     console.log({ url: this.baseUrl, response });
     return response;
   }
+
+  
 }

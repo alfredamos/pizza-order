@@ -24,6 +24,7 @@ import { PizzaOrdersDeliveredComponent } from './orders/pizza-orders-delivered/p
 import { PizzaOrdersShippedComponent } from './orders/pizza-orders-shipped/pizza-orders-shipped.component';
 import { PizzaOrdersPendingComponent } from './orders/pizza-orders-pending/pizza-orders-pending.component';
 import { TableOrdersComponent } from './orders/table-orders/table-orders.component';
+import { OrdersByUserIdComponent } from './orders/orders-by-user-id/orders-by-user-id.component';
 
 export const routes: Routes = [
   {
@@ -95,6 +96,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: PizzaOrdersShippedComponent,
     canActivate: [protectedGuard, adminGuard],
+  },
+  {
+    path: 'orders/orders-by-user-id',
+    pathMatch: 'full',
+    component: OrdersByUserIdComponent,
+    canActivate: [protectedGuard],
   },
   { path: '', component: ListPizzaComponent },
   {

@@ -61,6 +61,9 @@
         <li><a routerLink="/pizzas">Pizzas</a></li>
         <li><a routerLink="/users">Users</a></li>
         } @if(!!isLoggedIn()){
+        <li>
+          <a [routerLink]="['/orders/orders-by-user-id']">My Orders</a>
+        </li>
         <li><a routerLink="/logout">Logout</a></li>
         }@else{
         <li><a routerLink="/login">Login</a></li>

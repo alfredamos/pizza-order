@@ -20,6 +20,7 @@ export class NavigationBarComponent {
   isAdmin = this.authStoreService?.isAdmin;
   isLoggedIn = this.authStoreService?.isLoggedIn;
   carts = this.cartItemStoreService.cartItems;
+
   totalQuantity = computed(() =>
     this.cartUtilService.totalQuantity(this.carts())
   );
