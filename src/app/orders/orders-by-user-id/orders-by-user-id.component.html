@@ -35,7 +35,7 @@
 
         <td>{{ order.totalPrice }}</td>
         <td>{{ order.totalQuantity }}</td>
-        <td>{{ order.orderDate | date : "dd/MM/yyyy" }}</td>
+        <td>{{ order.orderDate | date : "mediumDate" }}</td>
         <td>{{ order.status }}</td>
         <td>{{ order.user?.name }}</td>
       </tr>

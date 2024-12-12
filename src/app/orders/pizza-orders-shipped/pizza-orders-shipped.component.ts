@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OrderDbService } from '../../services/orderDb.service';
 import { OrderStoreService } from '../../services/orderStore.service';
 import { Status } from '../../../models/auth/status.model';
 import { DatePipe } from '@angular/common';
+import { OrderModel } from '../../../models/orders/orderModel.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pizza-orders-shipped',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './pizza-orders-shipped.component.html',
   styleUrl: './pizza-orders-shipped.component.css',
 })
@@ -15,6 +17,7 @@ export class PizzaOrdersShippedComponent {
   orderStoreService = inject(OrderStoreService);
 
   orders = this.orderStoreService.orders;
+  allOrders = signal<OrderModel[]>([]);
 
   ngOnInit(): void {
     this.loadOrder();
@@ -25,6 +28,8 @@ export class PizzaOrdersShippedComponent {
       (order) => order.status === Status.Shipped
     );
 
+    this.allOrders.set(orders);
+
     this.orderStoreService.editAllOrders(orders);
   }
 
@@ -32,7 +37,7 @@ export class PizzaOrdersShippedComponent {
     console.log('is-delivered');
     const updatedOrder = await this.orderDbService.orderDelivered(orderId);
 
-    console.log('all-orders-delivered, updatedOrder : ', updatedOrder);
+    this.allOrders.set(this.orders()?.map(order => order.id === orderId ? updatedOrder : order)?.filter(ord => ord.status === Status.Shipped));
 
     this.orderStoreService.editOrder(updatedOrder);
   }

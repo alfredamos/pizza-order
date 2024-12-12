@@ -1,6 +1,9 @@
-@if(orders().length === 0){
-<div class="flex justify-center items-center mx-auto my-auto bg-white text-black max-w-lg px-12 py-40  rounded-lg shadow-lg mt-24">
+@if(allOrders().length === 0){
+<div
+  class="flex flex-col justify-between items-end mx-auto my-auto bg-white text-black max-w-lg px-12 py-40 rounded-lg shadow-lg mt-24"
+>
   <h1 class="text-3xl">There are no orders to display!</h1>
+  <span class="mt-32 text-indigo-900"><a routerLink="/">Go Home</a></span>
 </div>
 }@else {
 <div class="overflow-x-auto bg-white m-6 shadow-inner rounded mx-4 p-3">
@@ -18,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (order of orders(); track order.id){
+      @for (order of allOrders(); track order.id){
 
       <tr class="text-base text-black">
         <td class="truncate hover:whitespace-normal">{{ order.id }}</td>
@@ -35,12 +38,12 @@
 
         <td>${{ order.totalPrice }}</td>
         <td>{{ order.totalQuantity }}</td>
-        <td>{{ order.orderDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ order.orderDate | date : "mediumDate" }}</td>
         <td>{{ order.status }}</td>
         <td>{{ order.user?.name }}</td>
         <td>
           <button
-            [disabled]="order.isDelivered"
+            [disabled]="order.isDelivered || !order.isShipped"
             type="button"
             class="py-2 px-4 border-2 border-green-900 hover:bg-green-900 hover:text-green-100 text-green-900 font-bold text-base rounded-lg m-2"
             (click)="onDeliveredOrder(order.id)"

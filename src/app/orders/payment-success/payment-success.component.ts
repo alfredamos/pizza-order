@@ -24,6 +24,6 @@ export class PaymentSuccessComponent {
   backToPizzas() {
     this.cartItemStoreService.removeLocalStorageCartItems();
     this.cartItemStoreService.editAllCatItems([]);
-    this.router.navigateByUrl('/pizzas');
+    this.router.navigateByUrl('/');
   }
 }

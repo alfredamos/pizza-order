@@ -5,10 +5,11 @@ import { OrderPayload } from '../../../models/orders/orderPayload.model';
 import { OrderModel } from '../../../models/orders/orderModel.model';
 import { Status } from '../../../models/auth/status.model';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pizza-orders-delivered',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './pizza-orders-delivered.component.html',
   styleUrl: './pizza-orders-delivered.component.css',
 })

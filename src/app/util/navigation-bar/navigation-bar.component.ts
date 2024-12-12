@@ -20,6 +20,8 @@ export class NavigationBarComponent {
   isAdmin = this.authStoreService?.isAdmin;
   isLoggedIn = this.authStoreService?.isLoggedIn;
   carts = this.cartItemStoreService.cartItems;
+  open = signal(true);
+  close = signal(false);
 
   totalQuantity = computed(() =>
     this.cartUtilService.totalQuantity(this.carts())
@@ -32,4 +34,18 @@ export class NavigationBarComponent {
       isAdmin: this.isAdmin(),
     });
   });
+
+  onOpenDropdown() {
+    console.log('In-navbar!!!');
+    this.open.update((oldValue) => !oldValue);
+    //this.close.update((oldValue) => !oldValue);
+    console.log('open : ', this.open());
+  }
+
+  onCloseDropdown() {
+    console.log('out-navbar!!!');
+    this.close.update((oldValue) => !oldValue);
+    //this.open.update((oldValue) => !oldValue);
+    console.log('close : ', this.open());
+  }
 }
