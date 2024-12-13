@@ -61,12 +61,10 @@ export class PizzaOrdersPendingComponent {
   }
 
   async onDeleteOrder(orderId: string) {
-    const deletedOrder = await this.orderDbService.deleteResource(orderId);
+    await this.orderDbService.deleteResource(orderId);
 
-    if (!!deletedOrder) {
-      this.allOrders()?.filter((order) => order.id !== orderId);
+    this.allOrders.set(this.orders()?.filter((order) => order.id !== orderId));
 
-      this.orderStoreService.deleteOrder(orderId);
-    }
+    this.orderStoreService.deleteOrder(orderId);
   }
 }
