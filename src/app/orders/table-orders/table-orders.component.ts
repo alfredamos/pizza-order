@@ -42,4 +42,14 @@ export class TableOrdersComponent {
 
     this.orderStoreService.editOrder(updatedOrder);
   }
+
+  async onDeleteOrder(orderId: string) {
+    const deletedOrder = await this.orderDbService.deleteResource(orderId);
+
+    if (!!deletedOrder) {
+      this.orders()?.filter((order) => order.id !== orderId);
+
+      this.orderStoreService.deleteOrder(orderId);
+    }
+  }
 }

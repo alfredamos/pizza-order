@@ -57,6 +57,14 @@
           >
             Shipped
           </button>
+           <button
+            [disabled]="order.isShipped || order.isDelivered"
+            type="button"
+            class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-indigo-100 text-rose-900 font-bold text-base rounded-lg m-2"
+            (click)="onDeleteOrder(order.id)"
+          >
+            Delete
+          </button>
         </td>
       </tr>
 
