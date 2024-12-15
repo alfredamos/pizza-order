@@ -3,6 +3,7 @@ import { CartItem } from '../../models/cartItems/cartItem.model';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { v4 as uuidv4 } from 'uuid';
 import { CartItemStoreService } from './cartItemStore.service';
+import { OrderPayload } from '../../models/orders/orderPayload.model';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,20 @@ export class CartUtilService {
 
     this.cartItemStoreService.editCartItem(newCart);
   }
+
+  makeOrder(userId: string,carts: CartItem[]): OrderPayload {
+      const orderPayload: OrderPayload = {
+        id: uuidv4(),
+        paymentId: '',
+        cartItems: carts,
+        totalPrice: this.totalPrice(carts),
+        totalQuantity: this.totalQuantity(carts),
+        userId: userId,
+        orderDate: new Date(),
+      };
+
+      return orderPayload;
+    }
 
   quantityDecrease(cart: CartItem) {
     console.log('Quantity is decreased');
