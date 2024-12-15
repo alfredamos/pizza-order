@@ -9,6 +9,7 @@ import {
   heroTrash,
 } from '@ng-icons/heroicons/outline';
 import { Router, RouterLink } from '@angular/router';
+import { CartUtilService } from '../../services/cartUtil.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,63 +21,42 @@ import { Router, RouterLink } from '@angular/router';
   ],
 })
 export class CartComponent {
+  //----> Stores
+  cartUtilService = inject(CartUtilService);
   cartItemStoreService = inject(CartItemStoreService);
   carts = this.cartItemStoreService?.cartItems;
 
   router = inject(Router);
 
-  increaseQuantity(cart: CartItem){
+  increaseQuantity(cart: CartItem) {
     console.log('Increase quantity of cart-id : ', cart.id);
-    const newCart = {
-      ...cart,
-      quantity: cart.quantity >= 20 ? 20 : cart.quantity + 1,
-    };
+    this.cartUtilService.quantityIncrease(cart);
+  }
 
-    this.cartItemStoreService.editCartItem(newCart);
-  };
-
-  decreaseQuantity(cart: CartItem){
+  decreaseQuantity(cart: CartItem) {
     console.log('Decrease quantity of cart-id : ', cart.id);
-    const newCart = {
-      ...cart,
-      quantity: cart.quantity <= 1 ? 1 : cart.quantity - 1,
-    };
-    if (cart?.quantity === 0)
-      this.cartItemStoreService.deleteCartItem(newCart.id); //dispatch(deleteCartItem({ cartItemId: cart.id }));
-    if (cart?.quantity > 0) this.cartItemStoreService.editCartItem(newCart); //dispatch(editCartItem({ cartItem: newCart }));
-  };
+    this.cartUtilService.quantityDecrease(cart);
+  }
 
-  removePizza(cartId: string){
+  removePizza(cartId: string) {
     console.log('Increase quantity of cart-id : ', cartId);
 
-    const newCartItems = this.carts()?.filter((cart) => {
-      if (cart.id === cartId) {
-        this.cartItemStoreService.deleteCartItem(cart.id);
-        return;
-      }
+    this.cartUtilService.removeItem(cartId, this.carts());
+  }
 
-      return cart;
-    }) as CartItem[];
-
-    this.cartItemStoreService.editAllCatItems(newCartItems);
-  };
-
-  makeCheckout(){
+  makeCheckout() {
     this.router.navigateByUrl('/orders/checkout');
-  };
+  }
 
-  backToPizzas = () => {
+  backToPizzas() {
     this.router.navigateByUrl('/');
-  };
+  }
 
   subTotal(cart: CartItem) {
-    return cart.quantity * cart.price;
+    return this.cartUtilService.subTotal(cart);
   }
 
   total() {
-    return this.carts()?.reduce(
-      (sum, current) => sum + current.price * current.quantity,
-      0
-    );
+    return this.cartUtilService.totalPrice(this.carts());
   }
 }

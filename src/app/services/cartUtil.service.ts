@@ -81,6 +81,19 @@ export class CartUtilService {
     return cart.quantity * cart.price;
   }
 
+  removeItem(cartId: string, carts: CartItem[]) {
+    const newCartItems = carts?.filter((cart) => {
+      if (cart.id === cartId) {
+        this.cartItemStoreService.deleteCartItem(cart.id);
+        return;
+      }
+
+      return cart;
+    }) as CartItem[];
+
+    this.cartItemStoreService.editAllCatItems(newCartItems);
+  }
+
   totalPrice(carts: CartItem[]) {
     return carts?.reduce(
       (sum, current) => sum + current.price * current.quantity,
