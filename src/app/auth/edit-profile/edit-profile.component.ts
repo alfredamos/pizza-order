@@ -33,8 +33,8 @@ export class EditProfileComponent {
     this.router.navigate(['/']);
   }
 
-  editProfileSubmit(editProfileModel: EditProfileModel) {
-    this.authDbService.editProfile(editProfileModel);
+  async editProfileSubmit(editProfileModel: EditProfileModel) {
+    await this.authDbService.editProfile(editProfileModel);
 
     this.router.navigate(['/']);
   }

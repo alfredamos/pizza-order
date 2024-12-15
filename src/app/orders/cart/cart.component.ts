@@ -25,7 +25,7 @@ export class CartComponent {
 
   router = inject(Router);
 
-  increaseQuantity = (cart: CartItem) => {
+  increaseQuantity(cart: CartItem){
     console.log('Increase quantity of cart-id : ', cart.id);
     const newCart = {
       ...cart,
@@ -35,7 +35,7 @@ export class CartComponent {
     this.cartItemStoreService.editCartItem(newCart);
   };
 
-  decreaseQuantity = (cart: CartItem) => {
+  decreaseQuantity(cart: CartItem){
     console.log('Decrease quantity of cart-id : ', cart.id);
     const newCart = {
       ...cart,
@@ -46,7 +46,7 @@ export class CartComponent {
     if (cart?.quantity > 0) this.cartItemStoreService.editCartItem(newCart); //dispatch(editCartItem({ cartItem: newCart }));
   };
 
-  removePizza = (cartId: string) => {
+  removePizza(cartId: string){
     console.log('Increase quantity of cart-id : ', cartId);
 
     const newCartItems = this.carts()?.filter((cart) => {
@@ -61,7 +61,7 @@ export class CartComponent {
     this.cartItemStoreService.editAllCatItems(newCartItems);
   };
 
-  makeCheckout = () => {
+  makeCheckout(){
     this.router.navigateByUrl('/orders/checkout');
   };
 

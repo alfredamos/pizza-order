@@ -27,8 +27,8 @@ export class ChangePasswordComponent {
     this.router.navigate(['/']);
   }
 
-  changePasswordSubmit(changePassword: ChangePasswordModel) {
-    this.authDbService.changePassword(changePassword);
+  async changePasswordSubmit(changePassword: ChangePasswordModel) {
+    await this.authDbService.changePassword(changePassword);
 
     this.router.navigate(['/']);
   }

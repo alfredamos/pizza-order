@@ -27,13 +27,6 @@ export class NavigationBarComponent {
     this.cartUtilService.totalQuantity(this.carts())
   );
 
-  effectLog = effect(() => {
-    console.log({
-      currentUser: this.currentUser(),
-      isLoggedIn: this.isLoggedIn(),
-      isAdmin: this.isAdmin(),
-    });
-  });
 
   onOpenDropdown() {
     console.log('In-navbar!!!');

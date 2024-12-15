@@ -20,9 +20,9 @@ export class LoginComponent {
     this.router.navigate(['/']);
   }
 
-  loginSubmit(loginModel: LoginModel) {
-    this.authStoreService.login(loginModel);
-    
+  async loginSubmit(loginModel: LoginModel) {
+    await this.authStoreService.login(loginModel);
+
     this.router.navigate(['/']);
   }
 }
