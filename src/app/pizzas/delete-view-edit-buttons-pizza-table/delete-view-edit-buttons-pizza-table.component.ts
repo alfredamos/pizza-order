@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, output } from '@angular/core';
 import { Pizza } from '../../../models/pizzas/pizza.model';
 import { PizzaDbService } from '../../services/pizzaDb.service';
 import { Router } from '@angular/router';
@@ -20,6 +20,9 @@ import { AuthStoreService } from '../../services/authStore.service';
 export class DeleteViewEditButtonsPizzaTableComponent {
   pizza = input.required<Pizza>();
   id = input.required<string>();
+
+  onDelete = output<string>();
+  onEdit = output<Pizza>();
 
   isDeletePizza = signal(false);
   isEditPizza = signal(false);
@@ -50,7 +53,9 @@ export class DeleteViewEditButtonsPizzaTableComponent {
     pizza.userId = this.userId;
     console.log('pizza info edited : ', pizza);
 
-    await this.pizzaDbService.editResource(this.id(), pizza);
+    const updatedPizza = await this.pizzaDbService.editResource(this.id(), pizza);
+
+    this.onEdit.emit(updatedPizza);
 
     this.isEditPizza.update((oldIsEditPizza) => !oldIsEditPizza);
 
@@ -72,6 +77,8 @@ export class DeleteViewEditButtonsPizzaTableComponent {
     console.log('pizza info deleted : ', id);
 
     await this.pizzaDbService.deleteResource(id);
+
+    this.onDelete.emit(id);
 
     this.isDeletePizza.update((oldIsDeletePizza) => !oldIsDeletePizza);
 

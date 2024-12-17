@@ -44,4 +44,16 @@ export class TablePizzaComponent implements OnInit {
 
     this.filteredPizzas.set(filteredPizzas);
   }
+
+  deletePizza(pizzaId: string){
+    this.filteredPizzas.set(this.pizzas()?.filter(pizza => pizza.id !== pizzaId));
+
+    this.pizzaStoreService.deletePizza(pizzaId);
+  }
+
+  editPizza(updatedPizza: Pizza){
+    this.filteredPizzas.set(this.pizzas()?.map(pizza => pizza.id === updatedPizza.id? updatedPizza: pizza ));
+
+    this.pizzaStoreService.editPizza(updatedPizza);
+  }
 }

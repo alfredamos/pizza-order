@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Stripe } from '@stripe/stripe-js';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -66,6 +66,6 @@ export class StripeService {
   }
 
   private loadStripe(): Promise<Stripe> {
-    return (window as any).Stripe(environment.stripe_publishable_key);
+    return loadStripe(environment.stripe_publishable_key!) as Promise<Stripe>;
   }
 }

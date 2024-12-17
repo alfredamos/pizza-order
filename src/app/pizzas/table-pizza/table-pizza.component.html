@@ -50,6 +50,8 @@
           <app-delete-view-edit-buttons-pizza-table
             [pizza]="pizza"
             [id]="pizza.id"
+            (onDelete)="deletePizza($event)"
+            (onEdit)="editPizza($event)"
           />
         </td>
       </tr>
