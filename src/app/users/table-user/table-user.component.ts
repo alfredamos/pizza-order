@@ -43,4 +43,12 @@ export class TableUserComponent {
 
     this.filteredUsers.set(filteredUsers);
   }
+
+  deleteUser(userId: string) {
+    this.filteredUsers.set(
+      this.users()?.filter((user) => user.id !== userId)
+    );
+
+    this.userStoreService.deleteUser(userId);
+  }
 }

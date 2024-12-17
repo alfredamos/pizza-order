@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDbService } from '../../services/userDb.service';
 import { UserPayload } from '../../../models/users/userPayload.model';
@@ -14,6 +14,8 @@ import { UserViewDialogComponent } from '../user-view-dialog/user-view-dialog.co
 export class DeleteViewButtonsUserTableComponent {
   user = input.required<UserPayload>();
   id = input.required<string>();
+
+  onDelete = output<string>();
 
   isDeleteUser = signal(false);
   isViewUser = signal(false);
@@ -44,6 +46,8 @@ export class DeleteViewButtonsUserTableComponent {
     console.log('user info deleted : ', id);
 
     await this.userDbService.deleteResource(id);
+
+    this.onDelete.emit(id);
 
     this.isDeleteUser.update((oldIsDeleteUser) => !oldIsDeleteUser);
 

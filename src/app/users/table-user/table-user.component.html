@@ -46,7 +46,7 @@
         <td>{{ user.address }}</td>
         <td>{{ user.gender }}</td>
         <td>
-          <app-delete-view-buttons-user-table [user]="user" [id]="user.id" />
+          <app-delete-view-buttons-user-table [user]="user" [id]="user.id" (onDelete)="deleteUser($event)"/>
         </td>
       </tr>
 
