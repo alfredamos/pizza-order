@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthStoreService } from '../../services/authStore.service';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -13,7 +13,7 @@ import { lucideLockOpen, lucideUsers, lucideUserPen } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [RouterLink, NgIcon],
+  imports: [RouterLink, NgIcon, RouterLinkActive],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.css',
   viewProviders: [

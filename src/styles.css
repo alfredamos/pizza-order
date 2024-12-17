@@ -2,3 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.is-active{
+  @apply text-indigo-900 font-semibold mb-2 hover:text-rose-900 hover:font-bold
+}

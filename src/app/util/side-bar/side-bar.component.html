@@ -6,6 +6,8 @@
           name="heroHome"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
+          [routerLinkActiveOptions]="{ exact: true }"
       /></a>
     </li>
     @if(isLoggedIn()){
@@ -15,6 +17,7 @@
           name="heroPencilSquare"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
       /></a>
     </li>
     <li class="mb-8" style="margin-left: 20px; margin-bottom: 60px">
@@ -23,6 +26,7 @@
           name="lucideUserPen"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
       /></a>
     </li>
     } @if(isAdmin()){
@@ -32,6 +36,7 @@
           name="heroCake"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
         />
       </a>
     </li>
@@ -41,6 +46,7 @@
           name="lucideUsers"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
       /></a>
     </li>
     }@if(isLoggedIn()){
@@ -50,6 +56,7 @@
           name="heroArrowRightStartOnRectangle,"
           size="40px"
           class="text-rose-900 font-extrabold"
+          [routerLinkActive]="'is-active'"
       /></a>
     </li>
     }@else if(!isLoggedIn()){
