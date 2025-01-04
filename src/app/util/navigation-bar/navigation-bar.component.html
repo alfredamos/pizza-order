@@ -1,33 +1,32 @@
 <div
-  class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2 relative flex justify-between items-center"
+  class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2 flex justify-between items-center"
 >
-  <div
-    class="flex items-center mt-4"
-    [ngClass]="
-      isLoggedIn() || totalQuantity() === 0
-        ? 'absolute top-0 right-0'
-        : 'hidden'
-    "
-  >
-    <a
-      class="btn btn-ghost text-xl flex justify-center item-center"
-      routerLink="/orders/cart"
-      >Pizza-Order
-      <span
-        [class]="
-          totalQuantity()
-            ? 'inline-block bg-rose-900 text-rose-100 rounded-full py-1 px-3'
-            : 'undefined'
-        "
-      >
-        {{ totalQuantity() ? totalQuantity() : undefined }}
-      </span></a
+  <div class="mt-6 relative w-full">
+    <div
+      class="btn btn-ghost text-xl"
+      [ngClass]="
+        isLoggedIn() || totalQuantity() === 0
+          ? 'absolute -top-10 left-0'
+          : 'hidden'
+      "
     >
+      Pizzeria
+      <a class="flex justify-center item-center" routerLink="/orders/cart">
+        <span
+          [class]="
+            totalQuantity()
+              ? 'inline-block bg-rose-900 text-rose-100 rounded-full py-1 px-3'
+              : 'undefined'
+          "
+        >
+          {{ totalQuantity() ? totalQuantity() : undefined }}
+        </span></a
+      >
+    </div>
   </div>
-  <div class="flex gap-4">
-    <span class="font-semibold flex justify-center item-center text-xl mb-2">{{
-      currentUser().name
-    }}</span>
+
+  <div class="flex gap-4 text-xl">
+    <div class="text-xl flex self-center">{{ firstName() }}</div>
     <div class="dropdown dropdown-end">
       <div
         tabindex="0"
@@ -35,16 +34,15 @@
         class="btn btn-ghost btn-circle avatar"
         (mouseenter)="onOpenDropdown()"
       >
-        <div class="w-15 rounded-full object-cover">
-          <img
-            alt="Tailwind CSS Navbar component"
-            [src]="
-              !!currentUser()
-                ? currentUser().image
-                : 'Tailwind CSS Navbar component'
-            "
-          />
-        </div>
+        <img
+          class="w-15 h-auto rounded-full object-cover aspect-square"
+          alt="Tailwind CSS Navbar component"
+          [src]="
+            !!currentUser()
+              ? currentUser().image
+              : 'Tailwind CSS Navbar component'
+          "
+        />
       </div>
       <ul
         tabindex="0"
@@ -67,9 +65,10 @@
           <a [routerLink]="['/orders/orders-by-user-id']">My Orders</a>
         </li>
         <li><a routerLink="/logout">Logout</a></li>
-        }@else{
+        }@if(!isLoggedIn()){
         <li><a routerLink="/login">Login</a></li>
         <li><a routerLink="/signup">Signup</a></li>
+
         }
       </ul>
     </div>

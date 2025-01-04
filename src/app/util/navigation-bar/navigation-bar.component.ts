@@ -23,10 +23,11 @@ export class NavigationBarComponent {
   open = signal(true);
   close = signal(false);
 
+  firstName = computed(() => this.currentUser()?.name?.split(' ')[0]);
+
   totalQuantity = computed(() =>
     this.cartUtilService.totalQuantity(this.carts())
   );
-
 
   onOpenDropdown() {
     console.log('In-navbar!!!');
