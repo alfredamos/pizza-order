@@ -5,6 +5,7 @@ import { AuthStoreService } from '../../services/authStore.service';
 import { Router } from '@angular/router';
 import { PizzaDbService } from '../../services/pizzaDb.service';
 import { PizzaStoreService } from '../../services/pizzaStore.service';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-new-pizza',
@@ -17,6 +18,7 @@ export class NewPizzaComponent {
   pizzaStoreService = inject(PizzaStoreService);
   authStoreService = inject(AuthStoreService);
   router = inject(Router);
+  toast = inject(HotToastService);
 
   userId = this.authStoreService.currentUser()?.id;
 
@@ -46,6 +48,8 @@ export class NewPizzaComponent {
     this.pizzaStoreService.addPizza(newPizza);
     console.log({ newPizza });
 
-    this.router.navigateByUrl('/');
+    this.toast.success("New pizza added successfully!")
+
+    this.router.navigateByUrl('/pizzas');
   }
 }

@@ -10,8 +10,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    //   provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor])), // <- changed here!
-    provideHotToastConfig(), // @ngxpert/hot-toast providers
+    provideHotToastConfig({
+      reverseOrder: true,
+      dismissible: true,
+      autoClose: true,
+      position: 'bottom-right',
+      theme: 'toast',
+    }), // @ngxpert/hot-toast providers
   ],
 };

@@ -5,6 +5,7 @@ import { CartUtilService } from '../../services/cartUtil.service';
 import { StripeService } from '../../services/stripePay.service';
 import { AuthStoreService } from '../../services/authStore.service';
 import { CartItem } from '../../../models/cartItems/cartItem.model';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-payment',
@@ -18,6 +19,7 @@ export class PaymentComponent {
   cartUtilService = inject(CartUtilService);
   router = inject(Router);
   stripeService = inject(StripeService);
+  toast = inject(HotToastService);
 
   carts = this.cartItemStoreService.cartItems;
 
@@ -28,14 +30,16 @@ export class PaymentComponent {
   userId = this.authStoreService.currentUser()?.id;
 
   initiateStripe() {
-    const orderPayload = this.cartUtilService.makeOrder(this.userId, this.carts());
+    const orderPayload = this.cartUtilService.makeOrder(
+      this.userId,
+      this.carts()
+    );
     this.stripeService.checkout(orderPayload);
 
+    this.toast.success('Order submitted for payment!');
   }
 
   subTotal(cart: CartItem) {
     return this.cartUtilService.subTotal(cart);
   }
-
-
 }

@@ -3,6 +3,7 @@ import { CartItemStoreService } from '../../services/cartItemStore.service';
 import { Router } from '@angular/router';
 import { CartItem } from '../../../models/cartItems/cartItem.model';
 import { CartUtilService } from '../../services/cartUtil.service';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-checkout',
@@ -15,12 +16,13 @@ export class CheckoutComponent {
   cartUtilStore = inject(CartUtilService);
   cartItemStoreService = inject(CartItemStoreService);
   router = inject(Router);
-
+  toast = inject(HotToastService)
   //----> State
   carts = this.cartItemStoreService.cartItems;
 
   makePayment() {
     this.cartItemStoreService.editAllCatItems(this.carts());
+    this.toast.success("Order is checked-out successfully!")
     this.router.navigateByUrl('/orders/payment');
   }
 
