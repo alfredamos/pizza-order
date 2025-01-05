@@ -3,6 +3,7 @@ import { SignupModel } from '../../../models/auth/signup.model';
 import { Router } from '@angular/router';
 import { SignupFormComponent } from '../../forms/auth/signup-form/signup-form.component';
 import { AuthDbService } from '../../services/authDb.service';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +16,7 @@ export class SignupComponent {
 
   authDbService = inject(AuthDbService);
   router = inject(Router);
+  toast = inject(HotToastService);
 
   backToList() {
     this.router.navigate(['/']);
@@ -22,6 +24,8 @@ export class SignupComponent {
 
   async signupSubmit(signupModel: SignupModel) {
     await this.authDbService.signup(signupModel);
+
+    this.toast.success("Signup is successfully!");
 
     this.router.navigate(['/']);
   }

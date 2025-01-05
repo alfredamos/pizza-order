@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthDbService } from '../../services/authDb.service';
 import { AuthStoreService } from '../../services/authStore.service';
 import { ChangePasswordModel } from '../../../models/auth/changePassword.model';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-change-password',
@@ -15,6 +16,7 @@ export class ChangePasswordComponent {
   authDbService = inject(AuthDbService);
   authStoreService = inject(AuthStoreService);
   router = inject(Router);
+  toast = inject(HotToastService);
 
   currentUser = this.authStoreService.currentUser;
 
@@ -29,6 +31,8 @@ export class ChangePasswordComponent {
 
   async changePasswordSubmit(changePassword: ChangePasswordModel) {
     await this.authDbService.changePassword(changePassword);
+
+    this.toast.success("Password change is successful!");
 
     this.router.navigate(['/']);
   }
