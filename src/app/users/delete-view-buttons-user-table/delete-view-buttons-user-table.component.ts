@@ -4,6 +4,7 @@ import { UserDbService } from '../../services/userDb.service';
 import { UserPayload } from '../../../models/users/userPayload.model';
 import { UserDeleteDialogComponent } from '../user-delete-dialog/user-delete-dialog.component';
 import { UserViewDialogComponent } from '../user-view-dialog/user-view-dialog.component';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-delete-view-buttons-user-table',
@@ -23,6 +24,7 @@ export class DeleteViewButtonsUserTableComponent {
 
   userDbService = inject(UserDbService);
   router = inject(Router);
+  toast = inject(HotToastService);
 
   userDeleteConfirmation() {
     this.isDeleteUser.update((oldIsDeleteUser) => !oldIsDeleteUser);
@@ -48,6 +50,8 @@ export class DeleteViewButtonsUserTableComponent {
     await this.userDbService.deleteResource(id);
 
     this.onDelete.emit(id);
+
+    this.toast.success("User deleted successfully!");
 
     this.isDeleteUser.update((oldIsDeleteUser) => !oldIsDeleteUser);
 
