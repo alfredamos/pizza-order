@@ -21,6 +21,7 @@
     "@ng-icons/core": "^29.10.0",
     "@ng-icons/heroicons": "^29.10.0",
     "@ng-icons/lucide": "^29.10.0",
+    "@ngxpert/hot-toast": "^4.1.1",
     "@stripe/stripe-js": "^5.2.0",
     "daisyui": "^4.12.14",
     "ngx-stripe": "^19.0.0",

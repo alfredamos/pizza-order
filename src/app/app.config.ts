@@ -4,6 +4,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from '../interceptors/authInterceptor';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     //   provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor])), // <- changed here!
+    provideHotToastConfig(), // @ngxpert/hot-toast providers
   ],
 };
