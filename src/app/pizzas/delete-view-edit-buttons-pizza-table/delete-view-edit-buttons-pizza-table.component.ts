@@ -6,6 +6,7 @@ import { PizzaDeleteDialogComponent } from '../pizza-delete-dialog/pizza-delete-
 import { PizzaEditDialogComponent } from '../pizza-edit-dialog/pizza-edit-dialog.component';
 import { PizzaViewDialogComponent } from '../pizza-view-dialog/pizza-view-dialog.component';
 import { AuthStoreService } from '../../services/authStore.service';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-delete-view-edit-buttons-pizza-table',
@@ -32,6 +33,7 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   authStoreService = inject(AuthStoreService);
   pizzaDbService = inject(PizzaDbService);
   router = inject(Router);
+  toast = inject(HotToastService);
 
   userId = this.authStoreService.currentUser()?.id;
 
@@ -53,7 +55,12 @@ export class DeleteViewEditButtonsPizzaTableComponent {
     pizza.userId = this.userId;
     console.log('pizza info edited : ', pizza);
 
-    const updatedPizza = await this.pizzaDbService.editResource(this.id(), pizza);
+    const updatedPizza = await this.pizzaDbService.editResource(
+      this.id(),
+      pizza
+    );
+
+    this.toast.success('Pizza edited successfully!');
 
     this.onEdit.emit(updatedPizza);
 
@@ -77,6 +84,8 @@ export class DeleteViewEditButtonsPizzaTableComponent {
     console.log('pizza info deleted : ', id);
 
     await this.pizzaDbService.deleteResource(id);
+
+    this.toast.success('Pizza deleted successfully!');
 
     this.onDelete.emit(id);
 
