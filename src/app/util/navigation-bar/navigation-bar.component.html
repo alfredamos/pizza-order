@@ -35,13 +35,9 @@
         (mouseenter)="onOpenDropdown()"
       >
         <img
-          class="w-15 h-auto rounded-full object-cover aspect-square"
+          class="w-15 h-auto rounded-full object-cover aspect-square border-indigo-900 border-2"
           alt="Tailwind CSS Navbar component"
-          [src]="
-            !!currentUser()
-              ? currentUser().image
-              : 'Tailwind CSS Navbar component'
-          "
+          [src]="currentUser().image || 'avatar3.jpg'"
         />
       </div>
       <ul
