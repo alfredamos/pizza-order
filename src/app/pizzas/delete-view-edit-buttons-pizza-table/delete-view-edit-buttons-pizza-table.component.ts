@@ -53,6 +53,7 @@ export class DeleteViewEditButtonsPizzaTableComponent {
   async editPizza(pizza: Pizza) {
     console.log('Please edit me now!!!');
     pizza.userId = this.userId;
+    pizza.id = this.id();
     console.log('pizza info edited : ', pizza);
 
     const updatedPizza = await this.pizzaDbService.editResource(

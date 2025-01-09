@@ -17,7 +17,6 @@
         <th>Date Order</th>
         <th>Status</th>
         <th>Order By</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -40,32 +39,6 @@
         <td>{{ order.orderDate | date : "mediumDate" }}</td>
         <td>{{ order.status }}</td>
         <td>{{ order.user?.name }}</td>
-        <td>
-          <button
-            [disabled]="order.isDelivered || !order.isShipped"
-            type="button"
-            class="py-2 px-4 border-2 border-green-900 hover:bg-green-900 hover:text-green-100 text-green-900 font-bold text-base rounded-lg m-2"
-            (click)="onDeliveredOrder(order.id)"
-          >
-            Delivered
-          </button>
-          <button
-            [disabled]="order.isShipped"
-            type="button"
-            class="py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-indigo-100 text-indigo-900 font-bold text-base rounded-lg m-2"
-            (click)="onShippedOrder(order.id)"
-          >
-            Shipped
-          </button>
-           <button
-            [disabled]="order.isShipped || order.isDelivered"
-            type="button"
-            class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-indigo-100 text-rose-900 font-bold text-base rounded-lg m-2"
-            (click)="onDeleteOrder(order.id)"
-          >
-            Delete
-          </button>
-        </td>
       </tr>
 
       }

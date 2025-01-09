@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class StripeService {
     const stripe = await this.stripePromise;
 
     const response$ = this.http.post<Session>(
-      `${environment.apiUrl}/stripe-payment/checkout`,
+      `${environment.apiUrl}/stripe/checkout`,
       order
     );
     const session = await firstValueFrom(response$);
@@ -41,16 +41,13 @@ export class StripeService {
   async redirectToCheckout(orderPayload: OrderPayload): Promise<Stripe> {
     const stripe = await this.stripePromise;
 
-    const response = await fetch(
-      `${environment.apiUrl}/stripe-payment/checkout`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(orderPayload),
-      }
-    );
+    const response = await fetch(`${environment.apiUrl}/stripe/checkout`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(orderPayload),
+    });
 
     const session = await response.json();
 
