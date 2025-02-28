@@ -8,18 +8,18 @@ import { firstValueFrom } from 'rxjs';
 })
 export class OrderDbService extends ApiClientService<OrderModel> {
   constructor() {
-    super('http://localhost:5000/api/orders');
+    super('http://localhost:3000/api/orders');
   }
 
   async orderDelivered(orderId: string) {
-    const url = `${this.baseUrl}/delivered/${orderId}`;
+    const url = `${this.baseUrl}/${orderId}/delivered`;
     const response$ = this.http.patch<OrderModel>(url, {});
     const response = await firstValueFrom(response$);
 
     return response;
   }
   async orderShipped(orderId: string) {
-    const url = `${this.baseUrl}/shipped/${orderId}`;
+    const url = `${this.baseUrl}/${orderId}/shipped`;
     const response$ = this.http.patch<OrderModel>(url, {});
     const response = await firstValueFrom(response$);
 
@@ -35,6 +35,14 @@ export class OrderDbService extends ApiClientService<OrderModel> {
     const response = await firstValueFrom(response$);
 
     console.log('At point 2, orders : ', response);
+
+    return response;
+  }
+
+  async deleteOrder(orderId: string){
+    const url = `${this.baseUrl}/${orderId}/remove`;
+    const response$ = this.http.delete<OrderModel>(url);
+    const response = await firstValueFrom(response$);
 
     return response;
   }

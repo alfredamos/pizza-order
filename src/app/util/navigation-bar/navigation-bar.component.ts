@@ -33,7 +33,7 @@ export class NavigationBarComponent {
     console.log('In-navbar!!!');
     this.open.update((oldValue) => !oldValue);
     //this.close.update((oldValue) => !oldValue);
-    console.log('open : ', this.open());
+    console.log('open : ', this.open(), " , ", {isAdmin: this.isAdmin(), isLoggedIn: this.isLoggedIn()});
   }
 
   onCloseDropdown() {

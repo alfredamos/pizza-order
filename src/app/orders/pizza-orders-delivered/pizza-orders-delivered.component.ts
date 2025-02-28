@@ -6,10 +6,11 @@ import { OrderModel } from '../../../models/orders/orderModel.model';
 import { Status } from '../../../models/auth/status.model';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { OrdersTableGeneralComponent } from '../orders-table-general/orders-table-general.component';
 
 @Component({
   selector: 'app-pizza-orders-delivered',
-  imports: [DatePipe, RouterLink],
+  imports: [OrdersTableGeneralComponent],
   templateUrl: './pizza-orders-delivered.component.html',
   styleUrl: './pizza-orders-delivered.component.css',
 })

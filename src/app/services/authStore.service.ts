@@ -2,8 +2,8 @@ import { computed, inject, signal, Injectable } from '@angular/core';
 import { AuthState } from '../../models/auth/authState.model';
 import { LoginModel } from '../../models/auth/login.model';
 import { AuthDbService } from './authDb.service';
-import { CartItemStoreService } from './cartItemStore.service';
-import { PizzaStoreService } from './pizzaStore.service';
+import { LoginResponse } from '../../models/auth/loginResponse.model';
+import { UserPayload } from '../../models/users/userPayload.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +11,11 @@ import { PizzaStoreService } from './pizzaStore.service';
 export class AuthStoreService {
   //----> State
   private authState = signal<AuthState>({ ...new AuthState() });
-  stateAuth = this.authState.asReadonly();
 
   //----> Getters
-  isLoggedIn = computed(() => this.stateAuth()?.isLoggedIn);
-  isAdmin = computed(() => this.stateAuth()?.isAdmin);
-  currentUser = computed(() => this.stateAuth()?.user);
-  token = computed(() => this.stateAuth()?.token);
+  isLoggedIn = computed(() => this.authState()?.isLoggedIn);
+  isAdmin = computed(() => this.authState()?.isAdmin);
+  currentUser = computed(() => this.authState()?.currentUser);
 
   //----> Needed services
   authDbService = inject(AuthDbService);
@@ -30,14 +28,25 @@ export class AuthStoreService {
     }
   }
 
+  editCurrentUser(userPayload: UserPayload){
+    this.authState.update(authSt => ({...authSt, currentUser: userPayload}))
+    this.setLocalAuth(this.authState())
+  }
+
   async login(loginModel: LoginModel) {
-    const authState = await this.authDbService.login(loginModel);
+    //----> Get the login user.
+    const loginRes = await this.authDbService.login(loginModel);
+
+    //----> Get the authState properties from loginRes.
+    const authState = this.modifyInputData(loginRes);
+
     console.log('In store, authState : ', authState);
     this.authState.set(authState);
     this.setLocalAuth(authState);
   }
 
-  logout() {
+  async logout() {
+    await this.authDbService.logout()
     this.authState.set(new AuthState());
 
     this.removeLocalAuth();
@@ -53,5 +62,19 @@ export class AuthStoreService {
 
   removeLocalAuth() {
     localStorage.removeItem('auth');
+  }
+
+  private modifyInputData(loginRes: LoginResponse){
+    const authStateRes: AuthState = {
+      id: loginRes?.authResponse?.id,
+      image: loginRes?.authResponse?.image,
+      isAdmin: loginRes?.authResponse?.isAdmin,
+      isLoggedIn: loginRes?.authResponse?.isLoggedIn,
+      name: loginRes?.authResponse?.name,
+      role: loginRes?.authResponse?.role,
+      currentUser: loginRes?.currentUser
+    }
+
+    return authStateRes;
   }
 }

@@ -36,6 +36,7 @@ export class EditProfileFormComponent {
       name: this.currentUser()?.name,
       address: this.currentUser()?.address,
       phone: this.currentUser()?.phone,
+      image: this.currentUser()?.image
     });
   }
 

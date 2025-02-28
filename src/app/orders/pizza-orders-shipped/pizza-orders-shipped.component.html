@@ -1,59 +1,6 @@
-@if(allOrders().length === 0){
-<div
-  class="flex flex-col justify-between items-end mx-auto my-auto bg-white text-black max-w-lg px-12 py-40 rounded-lg shadow-lg mt-24"
->
-  <h1 class="text-3xl">There are no orders to display!</h1>
-  <span class="mt-32 text-indigo-900"><a routerLink="/">Go Home</a></span>
-</div>
-}@else {
-<div class="overflow-x-auto bg-white m-6 shadow-inner rounded mx-4 p-3">
-  <table class="table table-zebra border-1 border-gray-200 p-3">
-    <thead class="text-gray-200 text-xl bg-gray-500">
-      <tr class="">
-        <th>Order No.</th>
-        <th>Items</th>
-        <th>Price</th>
-        <th>Quantities</th>
-        <th>Date Order</th>
-        <th>Status</th>
-        <th>Order By</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (order of allOrders(); track order.id){
+<app-orders-table-general
+[orders]="allOrders()"
+[isDelivered]="true"
+(onDeliveredOrder)="onDeliveredOrder($event)"
 
-      <tr class="text-base text-black">
-        <td>{{ order.id }}</td>
-        <td>
-          @for(item of order?.cartItems; track item.id){
-          <ul>
-            <li>
-              <p>{{ item.name }}</p>
-            </li>
-          </ul>
-          }
-        </td>
-
-        <td>{{ order.totalPrice }}</td>
-        <td>{{ order.totalQuantity }}</td>
-        <td>{{ order.orderDate | date : "mediumDate" }}</td>
-        <td>{{ order.status }}</td>
-        <td>{{ order.user?.name }}</td>
-        <td>
-          <button
-            [disabled]="order.isDelivered"
-            type="button"
-            class="py-2 px-4 border-2 border-green-900 hover:bg-green-900 hover:text-green-100 text-green-900 font-bold text-base rounded-lg m-2"
-            (click)="onDeliveredOrder(order.id)"
-          >
-            Delivered
-          </button>
-        </td>
-      </tr>
-
-      }
-    </tbody>
-  </table>
-</div>
-}
+/>

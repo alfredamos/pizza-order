@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { OrderDbService } from '../../services/orderDb.service';
 import { OrderStoreService } from '../../services/orderStore.service';
 import { DatePipe } from '@angular/common';
+import { OrdersTableGeneralComponent } from '../orders-table-general/orders-table-general.component';
 
 @Component({
   selector: 'app-table-orders',
-  imports: [DatePipe],
+  imports: [OrdersTableGeneralComponent],
   templateUrl: './table-orders.component.html',
   styleUrl: './table-orders.component.css',
 })

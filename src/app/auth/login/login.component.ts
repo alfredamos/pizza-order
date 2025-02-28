@@ -24,7 +24,7 @@ export class LoginComponent {
 
   async loginSubmit(loginModel: LoginModel) {
     await this.authStoreService.login(loginModel);
-
+    
     this.toast.success("Login is successful!");
 
     this.router.navigate(['/']);

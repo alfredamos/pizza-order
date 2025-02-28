@@ -36,9 +36,12 @@ export class EditProfileComponent {
   }
 
   async editProfileSubmit(editProfileModel: EditProfileModel) {
-    await this.authDbService.editProfile(editProfileModel);
+    const userPayload = await this.authDbService.editProfile(editProfileModel);
 
     this.toast.success("profile is edited successfully!");
+
+    //-----> Store the edited user in the user-store.
+    this.authStoreService.editCurrentUser(userPayload)
 
     this.router.navigate(['/']);
   }
