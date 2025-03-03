@@ -37,6 +37,10 @@ export class ListPizzaComponent implements OnInit {
     this.pizzaStoreService.editAllPizzas(pizzas);
   }
 
+  detailPizza(pizza: Pizza){
+    this.pizzaStoreService.updatePizza(pizza)
+  }
+
   addToCart(pizza: Pizza) {
     console.log('Add to cart');
     this.cartItemStoreService.changeIsAddToCart(true);

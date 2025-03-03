@@ -12,14 +12,15 @@
         height="80"
         width="80"
         class="object-cover w-full h-48"
-      />
+      >
     </figure>
+    <span class="flex justify-end mr-1 text-rose-900 font-bold"><a [routerLink]="['/pizzas/detail', pizza?.id]" (click)="detailPizza(pizza)">Detail</a></span>
     <div class="card-body">
       <h2 class="card-title">
-        <a routerLink="`/pizzas/{{ pizza.id }}/detail`">{{ pizza.name }}</a>
+        <a [routerLink]="['/pizzas/detail', pizza?.id]" (click)="detailPizza(pizza)">{{ pizza.name }}</a>
       </h2>
       <p>${{ pizza.price }}</p>
-      <p>{{ pizza.description }}</p>
+      <p class="text-muted">{{ pizza.description.substr(0,30) }}...More</p>
       <div class="card-actions justify-end">
         <button class="btn btn-primary" (click)="addToCart(pizza)">
           Buy Now

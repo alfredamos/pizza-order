@@ -1,4 +1,4 @@
-import { signal, computed, inject, Injectable } from '@angular/core';
+import { signal, computed, inject, Injectable, Signal } from '@angular/core';
 import { Pizza } from '../../models/pizzas/pizza.model';
 import { PizzaState } from '../../models/pizzas/pizzaState.model';
 
@@ -7,12 +7,16 @@ import { PizzaState } from '../../models/pizzas/pizzaState.model';
 })
 export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
-  statePizza = this.pizzaState.asReadonly();
+  private pizzaDetail = signal<Pizza>(new Pizza());
 
-  localStoragePizza = computed(() => this.getLocalStoragePizzas());
+  pizzaId = signal("");
 
   pizzas = computed(() => {
-    return this.statePizza()?.pizzas ?? this.localStoragePizza;
+    return this.pizzaState()?.pizzas ?? this.getLocalStorage("pizzas");
+  });
+
+  pizza = computed(() => {
+    return this.pizzaDetail() ?? this.getLocalStorage("pizza");
   });
 
   addPizza(pizza: Pizza) {
@@ -45,19 +49,30 @@ export class PizzaStoreService {
 
   editAllPizzas(pizzas: Pizza[]) {
     this.pizzaState.update((oldPizzaState) => ({ ...oldPizzaState, pizzas }));
-    this.removeLocalStoragePizzas();
-    this.setLocalStoragePizzas(pizzas);
+    this.removeLocalStorage("pizzas");
+    this.setLocalStorage("pizzas", pizzas);
   }
 
-  setLocalStoragePizzas(pizzas: Pizza[]) {
-    localStorage.setItem('pizzas', JSON.stringify(pizzas));
+  updatePizzaId(id: string){
+    this.pizzaId.set(id);
+
   }
 
-  private getLocalStoragePizzas() {
-    return JSON.parse(localStorage.getItem('pizzas')!) as Pizza[];
+  updatePizza(pizza: Pizza){
+    this.pizzaDetail.set(pizza);
+    this.setLocalStorage("pizza", pizza)
   }
 
-  removeLocalStoragePizzas() {
-    localStorage.removeItem('pizzas');
+
+  setLocalStorage<T>(key: string, resources: T) {
+    localStorage.setItem(key, JSON.stringify(resources));
+  }
+
+  private getLocalStorage<T>(key: string) {
+    return JSON.parse(localStorage.getItem(key)!) as T[];
+  }
+
+  removeLocalStorage(key: string) {
+    localStorage.removeItem(key);
   }
 }

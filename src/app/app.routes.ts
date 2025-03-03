@@ -131,7 +131,7 @@ export const routes: Routes = [
     canActivate: [protectedGuard, adminGuard],
   },
   {
-    path: 'pizzas/:id/detail',
+    path: 'pizzas/detail/:id',
     pathMatch: 'full',
     component: DetailPizzaComponent,
     canActivate: [protectedGuard, adminGuard],

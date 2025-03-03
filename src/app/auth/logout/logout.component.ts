@@ -24,7 +24,8 @@ export class LogoutComponent implements OnInit {
 
   logoutSubmit() {
     this.cartItemStoreService.removeLocalStorageCartItems();
-    this.pizzaStoreService.removeLocalStoragePizzas();
+    this.pizzaStoreService.removeLocalStorage("pizzas");
+    this.pizzaStoreService.removeLocalStorage("pizza")
     this.authStoreService.logout();
 
     this.toast.success('Logout is successful!');
