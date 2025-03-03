@@ -16,7 +16,7 @@ import { AddPizzaItemComponent } from '../add-pizza-item/add-pizza-item.componen
 })
 export class DetailPizzaComponent implements OnInit{
   //----> Injected services.
-cartItemStoreService = inject(CartItemStoreService);
+  cartItemStoreService = inject(CartItemStoreService);
   pizzaDbService = inject(PizzaDbService);
   pizzaStoreService = inject(PizzaStoreService);
   route = inject(ActivatedRoute);

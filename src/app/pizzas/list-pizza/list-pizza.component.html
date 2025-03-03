@@ -20,9 +20,13 @@
         <a [routerLink]="['/pizzas/detail', pizza?.id]" (click)="detailPizza(pizza)">{{ pizza.name }}</a>
       </h2>
       <p>${{ pizza.price }}</p>
-      <p class="text-muted">{{ pizza.description.substr(0,30) }}...More</p>
+      <p>
+        <span class="text-muted mr-4">{{isShowMore() ? pizza.description : pizza.description.substr(0,40) }}</span>
+        <button class="bg-zinc-300 text-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center text-muted" (click)="showMoreText(pizza.id)" type="button">{{isShowMore() ? "Less" : "More"}}</button>
+      </p>
+
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" (click)="addToCart(pizza)">
+        <button class="btn btn-primary font-semibold" (click)="addToCart(pizza)">
           Buy Now
         </button>
       </div>

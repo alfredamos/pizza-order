@@ -15,6 +15,10 @@ import { PizzaDbService } from '../../services/pizzaDb.service';
   styleUrl: './list-pizza.component.css',
 })
 export class ListPizzaComponent implements OnInit {
+  //----> State.
+  isShowMore = signal(false);
+
+  //----> Injected services.
   cartItemStoreService = inject(CartItemStoreService);
   pizzaDbService = inject(PizzaDbService);
   pizzaStoreService = inject(PizzaStoreService);
@@ -22,16 +26,19 @@ export class ListPizzaComponent implements OnInit {
   router = inject(Router);
   cartUtilService = inject(CartUtilService);
 
+  //----> Computed
   pizzas = this.pizzaStoreService.pizzas;
 
   cartItems = this.cartItemStoreService?.cartItems;
 
   isAddToCart = this.cartItemStoreService?.isAddToCart;
 
+  //----> Life cycle.
   ngOnInit(): void {
     this.loadPizza();
   }
 
+  //----> Actions
   async loadPizza() {
     const pizzas = await this.pizzaDbService.getAllResources();
     this.pizzaStoreService.editAllPizzas(pizzas);
@@ -51,6 +58,17 @@ export class ListPizzaComponent implements OnInit {
   backToList() {
     console.log('You must close now!!!');
     this.cartItemStoreService.changeIsAddToCart(false);
+  }
+
+  showMoreText(pizzaId: string){
+    console.log("Pizza-id : ", pizzaId)
+    this.pizzas()?.forEach(pizza =>  {
+        if(pizza.id === pizzaId){
+          console.log("loop-id : ", pizza.id , " , ", "given-id : ", pizzaId)
+          this.isShowMore.set(!this.isShowMore())
+        }
+    })
+
   }
 
   toCart(carts: CartItem[]) {
