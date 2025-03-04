@@ -44,7 +44,10 @@
         <td>{{ pizza.name }}</td>
         <td>{{ pizza.price }}</td>
         <td>{{ pizza.quantity }}</td>
-        <td>{{ pizza.description }}</td>
+        <td>
+        <span class="text-muted mr-4">{{isShowMore() ? pizza.description : pizza.description.substr(0,40) }}</span>
+        <button class="bg-zinc-200 text-indigo-900 hover:text-zinc-200 hover:bg-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center text-muted font-semibold" (click)="showMoreText(pizza.id)" type="button">{{isShowMore() ? "Less" : "More"}}</button>
+      </td>
         <td>{{ pizza.topping }}</td>
         <td>
           <app-delete-view-edit-buttons-pizza-table

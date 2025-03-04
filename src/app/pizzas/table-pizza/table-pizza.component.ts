@@ -13,22 +13,38 @@ import { Pizza } from '../../../models/pizzas/pizza.model';
   styleUrl: './table-pizza.component.css',
 })
 export class TablePizzaComponent implements OnInit {
+  //----> State and constants.
   searchTerm = '';
+  isShowMore = signal(false);
+  filteredPizzas = signal<Pizza[]>([]);
 
+  //----> Injectors.
   pizzaDbService = inject(PizzaDbService);
   pizzaStoreService = inject(PizzaStoreService);
 
-  filteredPizzas = signal<Pizza[]>([]);
+  //----> Computed values
   pizzas = this.pizzaStoreService.pizzas;
 
+  //----> Life cycle.
   ngOnInit(): void {
     this.loadPizza();
   }
 
+  //----> Actions
   async loadPizza() {
     const pizzas = await this.pizzaDbService.getAllResources();
     this.pizzaStoreService.editAllPizzas(pizzas);
     this.filteredPizzas.set(pizzas);
+  }
+
+  showMoreText(pizzaId: string){
+    console.log("Pizza-id : ", pizzaId)
+    this.pizzas()?.forEach(pizza =>  {
+        if(pizza.id === pizzaId){
+          console.log("loop-id : ", pizza.id , " , ", "given-id : ", pizzaId)
+          this.isShowMore.set(!this.isShowMore())
+        }
+    })
   }
 
   submitSearch(event: Event) {
