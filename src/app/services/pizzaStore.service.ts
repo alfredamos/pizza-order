@@ -9,14 +9,12 @@ export class PizzaStoreService {
   private pizzaState = signal<PizzaState>({ ...new PizzaState() });
   private pizzaDetail = signal<Pizza>(new Pizza());
 
-  pizzaId = signal("");
-
   pizzas = computed(() => {
-    return this.pizzaState()?.pizzas ?? this.getLocalStorage("pizzas");
+    return this.pizzaState()?.pizzas ?? this.getLocalStorage<Pizza[]>("pizzas");
   });
 
   pizza = computed(() => {
-    return this.pizzaDetail() ?? this.getLocalStorage("pizza");
+    return this.pizzaDetail() ?? this.getLocalStorage<Pizza>("pizza");
   });
 
   addPizza(pizza: Pizza) {
@@ -53,23 +51,18 @@ export class PizzaStoreService {
     this.setLocalStorage("pizzas", pizzas);
   }
 
-  updatePizzaId(id: string){
-    this.pizzaId.set(id);
-
-  }
-
   updatePizza(pizza: Pizza){
     this.pizzaDetail.set(pizza);
     this.setLocalStorage("pizza", pizza)
   }
 
 
-  setLocalStorage<T>(key: string, resources: T) {
-    localStorage.setItem(key, JSON.stringify(resources));
+  setLocalStorage<T>(key: string, resource: T) {
+    localStorage.setItem(key, JSON.stringify(resource));
   }
 
   private getLocalStorage<T>(key: string) {
-    return JSON.parse(localStorage.getItem(key)!) as T[];
+    return JSON.parse(localStorage.getItem(key)!) as T;
   }
 
   removeLocalStorage(key: string) {
