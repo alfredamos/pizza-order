@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { Pizza } from '../../../models/pizzas/pizza.model';
 
 @Component({
@@ -8,10 +8,21 @@ import { Pizza } from '../../../models/pizzas/pizza.model';
   styleUrl: './pizza-view-card.component.css',
 })
 export class PizzaViewCardComponent {
+  //----> State
+  isShowMore = signal(false);
+
+  //----> Props
   pizza = input.required<Pizza>();
+
+  //----> Emits
   onCancel = output<void>();
 
+  //----> handlers
   backToList() {
     this.onCancel.emit();
+  }
+
+  showMoreText(){
+    this.isShowMore.update(showMore => !showMore)
   }
 }
